@@ -1,0 +1,66 @@
+.ech-body {
+    background-color: lightgray;
+}
+
+.ech-aff {
+    margin-top: -10%;
+    font-weight: bold;
+    background-color: white;
+}
+
+.ech-outline {
+    border: 0px solid #000;
+    background-color: white;
+}
+
+.ech-container {
+    position: relative;
+}
+
+.ech-echelon {
+    font-family: "Arial Unicode MS";
+    font-weight: bold;
+    background-color: white;
+    word-break: break-all;
+}
+
+.ech-image {
+    /*opacity: 0.4;
+    filter: alpha(opacity=40);*/ /* For IE8 and earlier */
+    position: absolute;
+}
+
+.ech-symbol-b {
+    /*border: 5px solid #000;*/
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(12%, -50%);
+}
+
+.ech-symbol-c {
+    /*border: 5px solid #000;*/
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    /*margin-right: -50%;
+    transform: translate(12%, -50%);*/
+}
+
+.ech-frame {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.ech-note {
+    font-weight: bold;
+    word-break: break-all;
+}
+
+.ech-wrap {
+    word-break: break-all;
+    font-size: xx-small;
+}
+
