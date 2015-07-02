@@ -7,6 +7,9 @@
  * the specification of Echelon, Affiliation, "2525" type, Size, or Symbol ID Code (sidc) via
  * URL arguments.  Please see the readme.md under the top directory.
  *
+ * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
+ * from the net (experimental).
+ *
  * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
  * All Rights Reserved
  *

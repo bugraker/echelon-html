@@ -7,6 +7,9 @@
  * the specification of Echelon, Affiliation, "2525" type, Size, or Symbol ID Code (sidc) via
  * URL arguments.  Please see the readme.md under the top directory.
  *
+ * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
+ * from the net (experimental).
+ *
  * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
  * All Rights Reserved
  *
@@ -125,8 +128,6 @@ class EchelonController extends Controller {
         $output['is_2525c'] = $this->model->testFor2525c($set); // echelon font size
         $output['echelon'] = $this->model->getEchelon($echelon, $output['is_2525c']); // get echelon
         $output['is_assumed'] = $this->model->testAssumed($affiliation); // get frame type
-        $output['is_landscape'] = $this->model->testOrientation($frame_image); // get orientation
-
         $output['font'] = $size; // echelon font size
         $output['size'] = $size; // output size
         $output['frame'] = (!empty($output['is_2525c'])? $size : $size * 0.8); // output size

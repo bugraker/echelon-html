@@ -7,6 +7,9 @@
  * the specification of Echelon, Affiliation, "2525" type, Size, or Symbol ID Code (sidc) via
  * URL arguments.  Please see the readme.md under the top directory.
  *
+ * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
+ * from the net (experimental).
+ *
  * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
  * All Rights Reserved
  *
@@ -17,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Echelon extends Model {
 
+    // echelon lookup
     private $echelons = [
         '-' => "&nbsp;", // NULL
         'A' => '&Oslash;', // TEAM/CREW
@@ -35,6 +39,7 @@ class Echelon extends Model {
         'N' => '&#x002b;&nbsp;&#x002b;', // COMMAND
     ];
 
+    // valid image extensions
     private $ext_good = [
         'jpg',
         'png',
@@ -43,17 +48,12 @@ class Echelon extends Model {
         'bmp'
     ];
 
-    public function transformSvg($svg=null)
-    {
-        if (!empty($svg)) {
-            $svg = preg_replace('/\r/', "\n", $svg);
-            //$svg = preg_replace('/<svg(.)*>/U', '', $svg);
-            //$svg = preg_replace('/<g(.)*>/', '', $svg);
-            //dd($svg);
-        }
-        return false;
-    }
-
+    /**
+     * Extract the echelon from the sidc if available.  Default to NULL (--)otherwise.
+     *
+     * @param null $sidc
+     * @return string
+     */
     public function extractEchelonFromSidc($sidc=null) {
         if (!empty($sidc) && strlen($sidc) >= 10) {
             $echelon = substr($sidc, 10, 2);
@@ -63,6 +63,15 @@ class Echelon extends Model {
         return($echelon);
     }
 
+    /**
+     * Validate then Match up provided echelon to the with what code/unicode should be placed above the frame.
+     * Note that the N echelon only is valid for the MIL-STD-2525C set.  If the echelon is not "valid", then
+     * send it on as is to be positioned in place of the echelon.  In the end, only the first eight characters will be used.
+     *
+     * @param null $echelon
+     * @param null $setc
+     * @return null
+     */
     public function getEchelon($echelon=null, $setc=null)
     {
         if (!empty($setc)) {
@@ -86,6 +95,13 @@ class Echelon extends Model {
         return($this->echelons['-']);
     }
 
+    /**
+     * Test and return some information for the image provided by the user, or the sidc if the country
+     * code is used to get a flag.
+     *
+     * @param null $url
+     * @return array
+     */
     public function testImage($url=null)
     {
         $test = $this->url_exists($url);
@@ -112,6 +128,14 @@ class Echelon extends Model {
         ]);
     }
 
+    /**
+     * Set the is_2525c, if appropriate, by returning true.  What we are looking for is the last
+     * character and if it is a 'c', then set true, or if anything else, use b by returning false.
+     * This allows the user to enter 2525c, c, or mil-std-2525c, etc.
+     *
+     * @param null $symbol_set
+     * @return bool
+     */
     public function testFor2525c($symbol_set=null){
         if (!empty($symbol_set)){
             if (preg_match('/[Cc]$/', $symbol_set)) {
@@ -121,6 +145,12 @@ class Echelon extends Model {
         return false;
     }
 
+    /**
+     * Return the affiliation from the provided Symbol ID Code.
+     *
+     * @param null $sidc
+     * @return bool|string
+     */
     public function extractAffiliationFromSidc($sidc=null){
         if (!empty($sidc) && strlen($sidc) >= 2){
             $affiliation = substr($sidc, 1,1);
@@ -131,6 +161,14 @@ class Echelon extends Model {
         return false;
     }
 
+    /**
+     * test to see if the provided affiliation indicates the "assumed/pending" condition.
+     * Returning true means that we need to use the 'assumed/pending" dashed frame, or
+     * use '?' indicator.
+     *
+     * @param null $source
+     * @return bool
+     */
     public function testAssumed($source=null) {
         if (!empty($source)) {
             if (preg_match('/^[AGPSWagpsw]$/', $source)) {
@@ -140,6 +178,12 @@ class Echelon extends Model {
         return false;
     }
 
+    /**
+     * Check image info and return the orientation of the image.
+     *
+     * @param null $frame_image
+     * @return bool
+     */
     public function testOrientation($frame_image=null) {
         if (!empty($frame_image)) {
             if ($frame_image['width'] >= $frame_image['height'] ) {
@@ -151,6 +195,12 @@ class Echelon extends Model {
         return true;
     }
 
+    /**
+     * Check to see if url exists
+     *
+     * @param $url
+     * @return array|bool
+     */
     private function url_exists($url) {
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -170,11 +220,4 @@ class Echelon extends Model {
 
         return (false);
     }
-
-/*
-    private function url_exists_old($url) {
-        if (!$fp = curl_init($url)) return false;
-        return ($url);
-    }
-*/
 }

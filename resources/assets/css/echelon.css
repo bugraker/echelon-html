@@ -25,13 +25,10 @@
 }
 
 .ech-image {
-    /*opacity: 0.4;
-    filter: alpha(opacity=40);*/ /* For IE8 and earlier */
     position: absolute;
 }
 
-.ech-symbol-b {
-    /*border: 5px solid #000;*/
+.ech-2525b {
     background-color: white;
     top: 50%;
     left: 50%;
@@ -39,13 +36,10 @@
     transform: translate(12%, -50%);
 }
 
-.ech-symbol-c {
-    /*border: 5px solid #000;*/
+.ech-2525c {
     background-color: white;
     top: 50%;
     left: 50%;
-    /*margin-right: -50%;
-    transform: translate(12%, -50%);*/
 }
 
 .ech-frame {

@@ -6,6 +6,9 @@
  * the specification of Echelon, Affiliation, "2525" type, Size, or Symbol ID Code (sidc) via
  * URL arguments.  Please see the readme.md under the top directory.
  *
+ * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
+ * from the net (experimental).
+ *
  * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
  * All Rights Reserved
  *
@@ -25,7 +28,7 @@
 
         <div class="ech-container">
             @if (!empty($is_assumed) && !empty($is_2525c))
-                <div class="ech-symbol-c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
+                <div class="ech-2525c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
                     <div class="ech-image text-center" style="top:{{4*$multiplier}}px; left:{{4*$multiplier}}px; width:{{$frame - 8*$multiplier}}px; height:{{($frame*.667) - 8*$multiplier}}px;">
                         <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 7*$multiplier}}px; height:{{($frame*.667) - 7*$multiplier}}px;">
                     </div>
@@ -41,9 +44,9 @@
             @else
 
                 @if (empty($is_2525c))
-                    <div class="ech-symbol-b" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
+                    <div class="ech-2525b" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
                 @else
-                    <div class="ech-symbol-c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
+                    <div class="ech-2525c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
                 @endif
 
                     <div class="ech-image text-center" style="top:{{4*$multiplier}}px; left:{{4*$multiplier}}px; height:{{($frame*.667) - 8*$multiplier}}px;">
