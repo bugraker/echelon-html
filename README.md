@@ -18,6 +18,7 @@ Available URL Arguments:
  *sidc  - The Symbol ID Code to use (See the MIL-STD-2525 standard document for proper format).  This is normally 
          a 15 char string, however this tool does not validate the length.  The tool will glean as much info as 
          available. Note: positions 1, 3-10, and 15 are ignored.
+         
            Info checked (by position):
               2     - Affiliation. Used to generate appropriate frame or indicator.
               11-12 - Echelon.  Used to generate appropriate echelon indicator.
@@ -37,6 +38,19 @@ Available URL Arguments:
  *note  - Adds 18 character under the frame (not mil spec).
 
 Example:  http://<echelon URL>?sidc=sagp-------NPA-&ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
+
+### Compatability
+
+Tested and works with:
+
+* MS Internet Explorer 11
+* Google Chrome 43.0
+* Mozilla Firefox 38.0.5
+
+Does not work with
+
+* MS Internet Explorer 8
+* Apple Safari 7.1.2
 
 ### License
 
