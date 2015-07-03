@@ -1,16 +1,38 @@
 ## Echelon - HTML
 
+ The Echelon - HTML web tool is
  * Displays an specified image within a MIL-STD-2525B or MIL-STD-2525C type frame.  Allows for 
  * the specification of Echelon, Affiliation, "MIL-STD-2525" type, Size, or Symbol ID Code (sidc) via 
  * URL arguments.  Please see "Usage" below.
 
-## Configuration
+## Install & Configuration
 
-None
+The Echelon-HTML tool is a web package   designed to be installed on your web server.  It was built using the 
+PHP framework: Laravel.  The root is located a ./echelon-html/public.
+
+- Prerequisites:
+
+You will need to have a web server with the following installed:
+ * The Echelon - HTML software
+ * a web (httpd) server to install the software on.
+ * PHP version 5.6
+ * The PHP package manager, Composer
+
+- Installation
+
+  * Download/clone the tool in your chosen directory.
+  * In a terminal, cd to the echelon-html directory and run:
+       composer install
+       
+       Composer will read the composer.lock & composer.json files and will download and 
+       install all required software.
+
+  * In, your httpd server, configure it to serve out the public directory of the Echelon - HTML package.
+       web_directory/echelon-html/public
 
 ## Usage
 
-Navigate to the webpage.  A default SFGP----------- symbol is displayed on a white 100x100 square.  Screen cap 
+Navigate to the web page.  A default SFGP----------- symbol is displayed on a white 100x100 square.  Screen cap 
 the square and save.  Use the overrides to alter the end result.
 
 Available URL Arguments:
@@ -47,7 +69,7 @@ Available URL Arguments:
 
  *ident - Override the affiliation (identity).  This affects if the solid frame is modified.  an "assumed/suspect" affiliation (A or S) will; 
             1) for MiL-STD-2525B a "Question Mark" indicator is added to the upper right of the Symbol border, 
-            2) for MIL-STD-2525C the solid border is replaced by a dached border
+            2) for MIL-STD-2525C the solid border is replaced by a dashed border
           
             A => ASSUMED FRIEND 
             F => FRIEND 
@@ -65,7 +87,11 @@ Available URL Arguments:
  
  *note  - Adds 18 characters under the frame (not mil spec).
 
-Example:  http://<echelon URL>?sidc=sagp-------NPA-&ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
+Example:  Two examples...
+
+          http://<echelon URL>?ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
+                      -- or --
+          http://<echelon URL>?sidc=SFGP-------DUS-&size=600
 
 ### Compatability
 

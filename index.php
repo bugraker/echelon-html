@@ -20,5 +20,5 @@
 // echo "WTF\n";
 // echo '&Oslash;';
 
-header("Location: ./echelon.php");
+header("Location: /echelon-html/public");
 die();
