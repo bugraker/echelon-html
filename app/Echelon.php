@@ -146,7 +146,7 @@ class Echelon extends Model {
     }
 
     /**
-     * Return the affiliation from the provided Symbol ID Code.
+     * Return the affiliation (identity/exercise amplification) from the provided Symbol ID Code.
      *
      * @param null $sidc
      * @return bool|string
@@ -154,7 +154,7 @@ class Echelon extends Model {
     public function extractAffiliationFromSidc($sidc=null){
         if (!empty($sidc) && strlen($sidc) >= 2){
             $affiliation = substr($sidc, 1,1);
-            if (preg_match('/^[AGPSWagpsw]$/', $affiliation)) {
+            if (preg_match('/^[ADGHJKLMNPSUWadghjklmnpsuw]$/', $affiliation)) {
                 return $affiliation;
             }
         }
@@ -162,7 +162,7 @@ class Echelon extends Model {
     }
 
     /**
-     * test to see if the provided affiliation indicates the "assumed/pending" condition.
+     * test to see if the provided affiliation indicates the "assumed/suspect" condition.
      * Returning true means that we need to use the 'assumed/pending" dashed frame, or
      * use '?' indicator.
      *
@@ -172,6 +172,54 @@ class Echelon extends Model {
     public function testAssumed($source=null) {
         if (!empty($source)) {
             if (preg_match('/^[AGPSWagpsw]$/', $source)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided affiliation indicates the "joker" condition.
+     * Returning true means that we need to use the "J" indicator.
+     *
+     * @param null $source
+     * @return bool
+     */
+    public function testJoker($source=null) {
+        if (!empty($source)) {
+            if (preg_match('/^[Jj]$/', $source)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided affiliation indicates the "faker" condition.
+     * Returning true means that we need to use the "K" indicator.
+     *
+     * @param null $source
+     * @return bool
+     */
+    public function testFaker($source=null) {
+        if (!empty($source)) {
+            if (preg_match('/^[Ff]$/', $source)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided affiliation indicates the "exercise" condition.
+     * Returning true means that we need to use the "X" indicator.
+     *
+     * @param null $source
+     * @return bool
+     */
+    public function testExercise($source=null) {
+        if (!empty($source)) {
+            if (preg_match('/^[DGLMWdglmw]$/', $source)) {
                 return true;
             }
         }

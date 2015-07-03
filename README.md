@@ -27,15 +27,43 @@ Available URL Arguments:
                       spec).
                       
  *ech   - Echelon override.  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters are 
-         shown (not mil spec).
+         shown (not mil spec).  Note: Echelon "N" is only valid for MIL_STD_2525C.
          
- *size  - Size override.  Overrides the default overall size of 100.
+            - =>  NULL
+            A => TEAM/CREW
+            B => SQUAD
+            C => SECTION
+            D => PLATOON/DETACHMENT
+            E => COMPANY/BATTERY/TROOP
+            F => BATTALION/SQUADRON
+            G => REGIMENT/GROUP
+            H => BRIGADE
+            I => DIVISION
+            J => CORPS/MEF
+            K => ARMY
+            L => ARMY/GROUP/FRONT
+            M => REGION
+            N => COMMAND
+
+ *ident - Override the affiliation (identity).  This affects if the solid frame is modified.  an "assumed/suspect" affiliation (A or S) will; 
+            1) for MiL-STD-2525B a "Question Mark" indicator is added to the upper right of the Symbol border, 
+            2) for MIL-STD-2525C the solid border is replaced by a dached border
+          
+            A => ASSUMED FRIEND 
+            F => FRIEND 
+            H => HOSTILE 
+            N => NEUTRAL 
+            P => PENDING
+            S => SUSPECT
+            U => UNKNOWN
+         
+ *size  - Size override.  Overrides the default overall size of 100px.
  
- *set   - Overrides the default MIL-STD-2525C set.  Last character: b = MIL-STD-2525B, c = MIL-STD-2525C.
+ *set   - Overrides the default MIL-STD-2525C set.  Entry last character: "b" = MIL-STD-2525B, "c" = MIL-STD-2525C.
  
- *image - Overrides the default crystal blue image.  Image will be resized to fit the MIL-STD-2525 frame.
+ *image - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame. Not mil spec.
  
- *note  - Adds 18 character under the frame (not mil spec).
+ *note  - Adds 18 characters under the frame (not mil spec).
 
 Example:  http://<echelon URL>?sidc=sagp-------NPA-&ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
 
@@ -43,14 +71,14 @@ Example:  http://<echelon URL>?sidc=sagp-------NPA-&ech=m&size=300&image=https:/
 
 Tested and works with:
 
-* MS Internet Explorer 11
+* Apple Safari 7.1.2
 * Google Chrome 43.0
 * Mozilla Firefox 38.0.5
+* MS Internet Explorer 11
 
 Does not work with
 
 * MS Internet Explorer 8
-* Apple Safari 7.1.2
 
 ### License
 

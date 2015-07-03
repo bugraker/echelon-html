@@ -1,5 +1,5 @@
 .ech-body {
-    background-color: lightgray;
+    background-color: #3b3b3b;
 }
 
 .ech-aff {
@@ -33,19 +33,23 @@
     top: 50%;
     left: 50%;
     margin-right: -50%;
+    -moz-transform: translate(12%, -50%);
+    -ms-transform: translate(12%, -50%);
+    -o-transform: translate(12%, -50%);
+    -webkit-transform: translate(12%, -50%);
     transform: translate(12%, -50%);
 }
 
 .ech-2525c {
     background-color: white;
-    top: 50%;
     left: 50%;
+    top: 50%;
 }
 
 .ech-frame {
     position: absolute;
-    top: 0px;
     left: 0px;
+    top: 0px;
 }
 
 .ech-note {
@@ -54,7 +58,12 @@
 }
 
 .ech-wrap {
+    font-size: xx-small;
     word-break: break-all;
+}
+
+.ech-footer {
+    color: lightgray;
     font-size: xx-small;
 }
 

@@ -31,6 +31,8 @@
     </head>
     <body class="ech-body">
 
-            @yield('content')
+        @yield('content')
+        <br>
+        <p class="ech-footer">geos.simcox@gmail.com</p>
     </body>
 </html>

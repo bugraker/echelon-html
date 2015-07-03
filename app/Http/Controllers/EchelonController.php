@@ -46,10 +46,10 @@ class EchelonController extends Controller {
             $sidc = 'SFGP-----------';
         }
 
-        /** AFF  **/
+        /** IDENT **/
         // affiliation override -  f = frd, a = assumed -or- the affiliation from the sidc (2nd place character).
-        if (!empty($_REQUEST['aff'])) {
-            $aff = $_REQUEST['aff'];
+        if (!empty($_REQUEST['ident'])) {
+            $identity = $_REQUEST['ident'];
         }
 
         /** ECH **/
@@ -108,9 +108,9 @@ class EchelonController extends Controller {
 
         /** START **/
         // determine affiliation
-        if (!empty($aff)) {
+        if (!empty($identity)) {
             // use provided affiliation override
-            $affiliation = $aff;
+            $affiliation = $identity;
         } else {
             // determine affiliation from sidc
             $affiliation = $this->model->extractAffiliationFromSidc($sidc);
