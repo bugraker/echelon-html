@@ -119,18 +119,24 @@ class EchelonController extends Controller {
         // determine echelon
         if (!empty($ech)) {
             // use provided echelon override
-            $echelon = filter_var($ech, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+            $echelon = filter_var($ech, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW); // size 1-8 chars
         } else {
             // determine echelon from sidc
-            $echelon = $this->model->extractEchelonFromSidc($sidc);
+            $echelon = $this->model->extractEchelonFromSidc($sidc); // size 2 chars
         }
 
-        $output['is_2525c'] = $this->model->testFor2525c($set); // echelon font size
-        $output['echelon'] = $this->model->getEchelon($echelon, $output['is_2525c']); // get echelon
+        $output['is_2525c'] = $this->model->testFor2525c($set);
+
+        if (strlen($echelon) <= 2) {
+            $output['echelon'] = $this->model->getEchelon($echelon, $output['is_2525c']); // get echelon (convert)
+        } else {
+            $output['echelon'] = $echelon;  // use as-is
+        }
+
         $output['is_assumed'] = $this->model->testAssumed($affiliation); // get frame type
         $output['font'] = $size; // echelon font size
         $output['size'] = $size; // output size
-        $output['frame'] = (!empty($output['is_2525c'])? $size : $size * 0.8); // output size
+        $output['frame'] = (!empty($output['is_2525c'])? $size : $size * 0.8); // output size c=100%, b=80%
         $output['multiplier'] = $size / 100; // output size
         $output['image'] = $frame_image['url']; // background image
         $output['image_txt'] = "Is hiding"; // missing image text

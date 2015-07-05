@@ -69,7 +69,7 @@
 
         </div>
 
-        <!-- Assumed indicator -->
+        <!-- Assumed indicator for set 2525B-->
         @if (!empty($is_assumed) && empty($is_2525c))
             <div class="ech-aff pull-right" style="font-size: {{$font*.8}}%;">
                 <span data-unicode="f128" class="fa fa-question">&nbsp;</span>
