@@ -130,19 +130,21 @@ class Echelon extends Model {
 
     /**
      * Set the is_2525c, if appropriate, by returning true.  What we are looking for is the last
-     * character and if it is a 'c', then set true, or if anything else, use b by returning false.
+     * character and if it is a 'c', for example,  then set true, or if anything else, use b by returning false.
      * This allows the user to enter 2525c, c, or mil-std-2525c, etc.
+     *
+     * Unrecognized last character nets the default = c.
      *
      * @param null $symbol_set
      * @return bool
      */
     public function testFor2525c($symbol_set=null){
         if (!empty($symbol_set)){
-            if (preg_match('/[Cc]$/', $symbol_set)) {
-                return true;
+            if (preg_match('/[Bb]$/', $symbol_set)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -171,7 +173,7 @@ class Echelon extends Model {
      */
     public function testAssumed($source=null) {
         if (!empty($source)) {
-            if (preg_match('/^[AGPSWagpsw]$/', $source)) {
+            if (preg_match('/^[AGMPSagmps]$/', $source)) {
                 return true;
             }
         }

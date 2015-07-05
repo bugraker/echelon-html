@@ -1,13 +1,19 @@
 ## Echelon - HTML
-
- The Echelon - HTML web tool is
- * Displays an specified image within a MIL-STD-2525B or MIL-STD-2525C type frame.  Allows for 
- * the specification of Echelon, Affiliation, "MIL-STD-2525" type, Size, or Symbol ID Code (sidc) via 
- * URL arguments.  Please see "Usage" below.
+ 
+ The purpose of this tool is to display an specified image within a MIL-STD-2525C friendly or assumed-friendly unit frame with 
+ specified size indicator (echelon).
+ 
+ The default will show a crystal blue frame, however the image parameter is used to specify an image to be contained within the frame.
+ If the "sidc" parameter is used without an image specified, the tool will look for the country code in the specified Symbol ID Code and
+ attempt to obtain a corresponding flag image to display within the frame, otherwise the crystal blue is used.  If it is desirous that
+ the image appear 100% of the time, then the user should specify the url in all cases.
+ 
+ The image redered may be controlled (affected) by providing overriding Identity, MIL-STD-2525 symbol set (B - reduced 80% or C), the 
+ output size, image, and unit size (mobility ignored).  Please see "Usage" below.
 
 ## Install & Configuration
 
-The Echelon-HTML tool is a web package   designed to be installed on your web server.  It was built using the 
+The Echelon-HTML tool is a web package designed to be installed on your web server.  It was built using the 
 PHP framework: Laravel.  The root is located a ./echelon-html/public.
 
 - Prerequisites:
@@ -15,8 +21,8 @@ PHP framework: Laravel.  The root is located a ./echelon-html/public.
 You will need to have a web server with the following installed:
  * The Echelon - HTML software
  * a web (httpd) server to install the software on.
- * PHP version 5.6
- * The PHP package manager, Composer
+ * PHP version 5.5 +
+ * The PHP package manager, Composer, installed
 
 - Installation
 
@@ -39,17 +45,17 @@ Available URL Arguments:
 
  *sidc  - The Symbol ID Code to use (See the MIL-STD-2525 standard document for proper format).  This is normally 
          a 15 char string, however this tool does not validate the length.  The tool will glean as much info as 
-         available. Note: positions 1, 3-10, and 15 are ignored.
+         available. Note: positions 1, 3-10, and 15 are ignored.  Note: the Function ID (5-10) are ignored.
          
            Info checked (by position):
               2     - Affiliation. Used to generate appropriate frame or indicator.
-              11-12 - Echelon.  Used to generate appropriate echelon indicator.
+              11-12 - Echelon (size/mobility).  Used to generate appropriate size indicator.  Mobility is ignored.
               13-14 - Country Code.  If a country code is given, and an image override is not specified, then
                       an attempt to produce an image will be made to the website "Flags of the World". (not mil 
                       spec).
                       
- *ech   - Echelon override.  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters are 
-         shown (not mil spec).  Note: Echelon "N" is only valid for MIL_STD_2525C.
+ *ech   - Echelon (size/mobility) override (mobility ignored).  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters
+          are displayed (not mil spec).  Notes: Only size is recognized, mobility is ignored. Echelon "N" is only valid for MIL_STD_2525C.
          
             - =>  NULL
             A => TEAM/CREW
@@ -65,23 +71,36 @@ Available URL Arguments:
             K => ARMY
             L => ARMY/GROUP/FRONT
             M => REGION
-            N => COMMAND
+            N => COMMAND (MIL-STD-2525C only)
 
- *ident - Override the affiliation (identity).  This affects if the solid frame is modified.  an "assumed/suspect" affiliation (A or S) will; 
+ *ident - Override the identity  (affiliation).  This affects if the solid frame is modified.  an "assumed" 
+          affiliation (A) will; 
             1) for MiL-STD-2525B a "Question Mark" indicator is added to the upper right of the Symbol border, 
             2) for MIL-STD-2525C the solid border is replaced by a dashed border
           
-            A => ASSUMED FRIEND 
+            A => ASSUMED FRIEND (dashed or ?)
             F => FRIEND 
-            H => HOSTILE 
+            
+          The following idents frame shapes and indicators are ignored, although they will be renderwd with a SFGP frame, unless they are marked with 
+          "(dashed or ?)", in which case they are rendered as with a SAGF frame:
+          
+            D => EXERCISE FRIEND
+            G => EXERCISE PENDING (dashed or ?))
+            H => HOSTILE
+            J => JOKER
+            K => FAKER
+            L => EXERCISE NEUTRAL
+            M => EXERCISE ASSUMED FRIEND (dashed or ?)
             N => NEUTRAL 
-            P => PENDING
-            S => SUSPECT
+            P => PENDING (dashed or ?)
+            S => SUSPECT (dashed or ?)
             U => UNKNOWN
+            W => EXERCISE UNKNOWN
          
  *size  - Size override.  Overrides the default overall size of 100px.
  
- *set   - Overrides the default MIL-STD-2525C set.  Entry last character: "b" = MIL-STD-2525B, "c" = MIL-STD-2525C.
+ *set   - Overrides the default MIL-STD-2525C set.  Entry last character: "b" = MIL-STD-2525B, "c" = MIL-STD-2525C.  It should be noted that
+          the size of the MIL-STD-2525B symbols are reduced 80% so that there is enough room for the assumed friend indicator.
  
  *image - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame. Not mil spec.
  
