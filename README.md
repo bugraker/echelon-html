@@ -8,7 +8,7 @@
  attempt to obtain a corresponding flag image to display within the frame, otherwise the crystal blue is used.  If it is desirous that
  the image appear 100% of the time, then the user should specify the url in all cases.
  
- The image redered may be controlled (affected) by providing overriding Identity, MIL-STD-2525 symbol set (B - reduced 80% or C), the 
+ The image rendered may be controlled (affected) by providing overriding Identity, MIL-STD-2525 symbol set (B - reduced 80% or C), the 
  output size, image, and unit size (mobility ignored).  Please see "Usage" below.
 
 ## Install & Configuration
