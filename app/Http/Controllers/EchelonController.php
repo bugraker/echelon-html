@@ -40,16 +40,16 @@ class EchelonController extends Controller {
 
         /** SIDC **/
         if (!empty($_REQUEST['sidc'])) {
-            $sidc = $_REQUEST['sidc'];
+            $this->model->sidc = $_REQUEST['sidc'];
         } else {
             // alrighty then, just default to SFGP-----------
-            $sidc = 'SFGP-----------';
+            $this->model->sidc = 'SFGP-----------';
         }
 
         /** IDENT **/
         // affiliation override -  f = frd, a = assumed -or- the affiliation from the sidc (2nd place character).
         if (!empty($_REQUEST['ident'])) {
-            $identity = $_REQUEST['ident'];
+            $this->model->identity = $_REQUEST['ident'];
         }
 
         /** ECH **/
@@ -61,9 +61,9 @@ class EchelonController extends Controller {
         /** NOTE **/
         // note override (not mil spec) -  add a short note under frame.
         if (!empty($_REQUEST['note'])) {
-            $note = substr($_REQUEST['note'], 0, 18);
+            $this->model->note = substr($_REQUEST['note'], 0, 12);
         } else {
-            $note = '';
+            $this->model->note = '';
         }
 
         /** SET **/
@@ -84,20 +84,46 @@ class EchelonController extends Controller {
             $size = 100; // default size
         }
 
+        /** NC */
+        if (!empty($_REQUEST['nc'])) {
+            $this->model->nocolor = true;
+        } else {
+            $this->model->nocolor = false;
+        }
+
+
+        /** START **/
+
+        // determine identity
+        if (!empty($this->model->identity)) {
+            // use provided affiliation override
+            $this->model->identity = $this->model->testAndReturnIdent($this->model->identity);
+            $this->model->sidc = substr($this->model->sidc,0,1).$this->model->identity.substr($this->model->sidc,2,12); // update the "default" or given sidc
+        } else {
+            // determine identity from sidc
+            $this->model->identity = $this->model->getIdentityFromSidc($this->model->sidc);
+        }
+
         /** IMAGE **/
         if (!empty($_REQUEST['image'])) {
+            // user spec'ed image
             $image = $_REQUEST['image'];
             $frame_image = $this->model->testImage($image);
+            $frame_image['default'] = false;
 
-        } elseif (strlen($sidc)>=15 && substr($sidc,12,2) <> '--') {
-            $cc = strtolower(substr($sidc,12,2));
+        } elseif (strlen($this->model->sidc) >= 15 && substr($this->model->sidc, 12, 2) <> '--') {
+            // flag image
+            $cc = strtolower(substr($this->model->sidc, 12, 2));
             $cc1 = $cc[0];
-            $image = "https://flagspot.net/images/".$cc1."/".$cc.".gif";
+            $image = "https://flagspot.net/images/" . $cc1 . "/" . $cc . ".gif";
             $frame_image = $this->model->testImage($image);
-            $frame_image['default'] = 'fotw';
+            $frame_image['default'] = false;
+            $frame_image['fotw'] = true;
+
         } else {
             // default
-            $default_image = '../resources/assets/img/frd.png';
+            $default_image = $this->model->getIdentityColorSwatch();
+
             $frame_info = getimagesize($default_image);
 
             $frame_image['height'] = $frame_info[1];
@@ -106,42 +132,59 @@ class EchelonController extends Controller {
             $frame_image['default'] = true;
         }
 
-        /** START **/
-        // determine affiliation
-        if (!empty($identity)) {
-            // use provided affiliation override
-            $affiliation = $identity;
-        } else {
-            // determine affiliation from sidc
-            $affiliation = $this->model->extractAffiliationFromSidc($sidc);
-        }
-
         // determine echelon
         if (!empty($ech)) {
             // use provided echelon override
-            $echelon = filter_var($ech, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW); // size 1-8 chars
+            $this->model->echelon = filter_var($ech, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW); // size 1-8 chars
         } else {
             // determine echelon from sidc
-            $echelon = $this->model->extractEchelonFromSidc($sidc); // size 2 chars
+            $this->model->echelon = $this->model->getEchelonFromSidc(); // size 2 chars
         }
 
-        $output['is_2525c'] = $this->model->testFor2525c($set);
+        $output['is_2525c'] = $this->model->is2525c($set);
 
-        if (strlen($echelon) <= 2) {
-            $output['echelon'] = $this->model->getEchelon($echelon, $output['is_2525c']); // get echelon (convert)
+        if (strlen($this->model->echelon) <= 2) {
+            $output['echelon'] = $this->model->getEchelon(); // get echelon (convert)
         } else {
-            $output['echelon'] = $echelon;  // use as-is
+            $output['echelon'] = $this->model->echelon;  // use as-is
         }
 
-        $output['is_assumed'] = $this->model->testAssumed($affiliation); // get frame type
+        if (strlen($this->model->echelon) <=2 && $this->model->isInstallation($this->model->echelon)) {
+            $output['is_installation'] = true;
+        } else {
+            $output['is_installation'] = false;
+        }
+
+        $this->model->indicator = "";
+        $output['is_faker'] = $this->model->isFaker();
+        $output['is_joker'] = $this->model->isJoker();
+        $output['is_exercise'] = $this->model->isExercise();
+        $output['is_assumed'] = $this->model->isAssumed();
+        $output['is_neutral'] = $this->model->isNeutral();
+        $output['is_unknown'] = $this->model->isUnknown();
+        $output['is_pending'] = $this->model->isPending();
+
         $output['font'] = $size; // echelon font size
         $output['size'] = $size; // output size
-        $output['frame'] = (!empty($output['is_2525c'])? $size : $size * 0.8); // output size c=100%, b=80%
+        $output['frame'] = $size * 0.75; // output size c=100%, b=80%
         $output['multiplier'] = $size / 100; // output size
+
+        if (!empty($this->model->indicator) && strlen($this->model->indicator) > 1) {
+            $output['indicator'] = $this->model->indicator;
+        } else {
+            $output['indicator'] = '&nbsp;'.$this->model->indicator;
+        }
+
+        // image post-processing
         $output['image'] = $frame_image['url']; // background image
         $output['image_txt'] = "Is hiding"; // missing image text
-        $output['default'] = $frame_image['default']; // image from the Flags of the World website
-        $output['note'] = $note;
+        $output['default'] = $frame_image['default'];
+
+        $output['bg_color'] = $this->model->getIdentityColor();
+        $output['nocolor'] = $this->model->nocolor;
+        $output['fotw'] = (!empty($frame_image['fotw']) ? $frame_image['fotw'] : false) ; // image from the Flags of the World website
+
+        $output['note'] = $this->model->note;
 
         header('Content-Type: text/html; charset=utf-8');
         return view('echelon.show', $output);

@@ -3,9 +3,10 @@
 }
 
 .ech-aff {
-    margin-top: -10%;
+    margin-left: 86%;
+    margin-top: 0%;
     font-weight: bold;
-    background-color: white;
+    background-color: #fefefe;
 }
 
 .ech-outline {
@@ -15,6 +16,7 @@
 
 .ech-container {
     position: relative;
+    top: 9%;
 }
 
 .ech-echelon {
@@ -22,6 +24,7 @@
     font-weight: bold;
     background-color: white;
     word-break: break-all;
+    background-color: #fefefe;
 }
 
 .ech-image {
@@ -37,13 +40,13 @@
     -ms-transform: translate(12%, -50%);
     -o-transform: translate(12%, -50%);
     -webkit-transform: translate(12%, -50%);
-    transform: translate(12%, -50%);
+    transform: translate(17%, -50%);
 }
 
 .ech-2525c {
     background-color: white;
-    left: 50%;
     top: 50%;
+    left: 50%;
 }
 
 .ech-frame {
@@ -55,6 +58,7 @@
 .ech-note {
     font-weight: bold;
     word-break: break-all;
+    background-color: #fefefe;
 }
 
 .ech-wrap {

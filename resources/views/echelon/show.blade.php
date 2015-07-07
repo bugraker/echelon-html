@@ -18,67 +18,72 @@
 
 @section('content')
 
-    <div class="ech-outline" style="width: {{$size}}px; height: {{$size}}px;">
+    <div class="ech-outline" style="width:{{$size}}px;height:{{$size}}px;">
 
     @if (!empty($echelon))
-        <div class="ech-echelon text-center" style="font-size: {{$font*.8}}%;">
+        <div class="ech-echelon text-center" style="font-size:{{$font*0.8}}%;">
             <span>{{$echelon}}</span>
         </div>
     @endif
 
         <div class="ech-container">
-            @if (!empty($is_assumed) && !empty($is_2525c))
-                <div class="ech-2525c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
-                    <div class="ech-image text-center" style="top:{{4*$multiplier}}px; left:{{4*$multiplier}}px; width:{{$frame - 8*$multiplier}}px; height:{{($frame*.667) - 8*$multiplier}}px;">
-                        <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 7*$multiplier}}px; height:{{($frame*.667) - 7*$multiplier}}px;">
-                    </div>
+                <div class="ech-2525b" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
                     <div class="ech-frame text-center">
-                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="sus" width="{{$frame*2}}px" height="{{$frame*2}}px">
+                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="ssgp" width="{{$frame*2}}px" height="{{$frame*2}}px">
+
+                            @if (!empty($is_assumed) && !empty($nocolor))
+                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:rgb(128,224,255);stroke:white;stroke-width:{{4*$multiplier}};"></rect>
+                            @elseif (!empty($default) || !empty($nocolor))
+                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:rgb(128,224,255);stroke:black;stroke-width:{{4*$multiplier}};"></rect>
+                            @else
+                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill:#{{$bg_color}};stroke:#{{$bg_color}};stroke-width:{{4*$multiplier}};"></rect>
+                            @endif
+
+                            @if (!empty($is_assumed) && !empty($is_2525c))
                             <line x1="0" y1="{{2*$multiplier}}" x2="{{$frame}}" y2="{{2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="0" y1="{{$frame*.667 - 2*$multiplier}}" x2="{{$frame}}" y2="{{$frame*.667 - 2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="{{2*$multiplier}}" y1="0" x2="{{2*$multiplier}}" y2="{{$frame*.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="{{$frame - 2*$multiplier}}" y1="0" x2="{{$frame - 2*$multiplier}}" y2="{{$frame*.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
+                            <line x1="0" y1="{{$frame*0.667 - 2*$multiplier}}" x2="{{$frame}}" y2="{{$frame*0.667 - 2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
+                            <line x1="{{2*$multiplier}}" y1="0" x2="{{2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
+                            <line x1="{{$frame - 2*$multiplier}}" y1="0" x2="{{$frame - 2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></line>
+                            @endif
                         </svg>
                     </div>
-                </div>
-            @else
-
-                @if (empty($is_2525c))
-                    <div class="ech-2525b" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
-                @else
-                    <div class="ech-2525c" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
-                @endif
-
-                    <div class="ech-image text-center" style="top:{{4*$multiplier}}px; left:{{4*$multiplier}}px; height:{{($frame*.667) - 8*$multiplier}}px;">
-                        <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 7*$multiplier}}px; height:{{($frame*.667) - 7*$multiplier}}px;">
+                    <div class="ech-image text-center" style="top:{{4*$multiplier}}px;left:{{4*$multiplier}}px;width:{{$frame - 8*$multiplier}}px;height:{{($frame*.667) - 8*$multiplier}}px;">
+                        <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 8*$multiplier}}px;height:{{($frame*0.667) - 8*$multiplier}}px;">
                     </div>
+                </div>
+            <!--
+
+                <div class="ech-2525b" style="width:{{$frame}}px;"  data-toggle="modal" data-target="#myModal">
+
                     <div class="ech-frame text-center">
-                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="frd" width="{{$frame*2}}px" height="{{$frame*2}}px">
-                            <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:rgb(128,224,255);stroke:rgb(0,0,0);stroke-width:{{4*$multiplier}};"></rect>
+                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="sfgp" width="{{$frame*2}}px" height="{{$frame*2}}px">
+                            <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:rgb(128,224,255);stroke:#{{$bg_color}};stroke-width:{{4*$multiplier}};"></rect>
                         </svg>
                     </div>
+                    <div class="ech-image text-center" style="top:{{4*$multiplier}}px;left:{{4*$multiplier}}px;height:{{($frame*0.667) - 8*$multiplier}}px;">
+                        <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 8*$multiplier}}px;height:{{($frame*0.667) - 8*$multiplier}}px;">
+                    </div>
                 </div>
-            @endif
-
+-->
             <!-- Note (not part of mil spec) -->
             @if (!empty($note))
-                <div class="ech-echelon text-center" style="position:absolute; top:{{$frame*.667}}px;font-size:{{$font*.8}}%;">
+                <div class="ech-echelon text-center" style="position:absolute;top:{{$frame*0.667}}px;font-size:{{$font*0.8}}%;">
                     {{$note}}
                 </div>
             @endif
 
         </div>
 
-        <!-- Assumed indicator for set 2525B-->
-        @if (!empty($is_assumed) && empty($is_2525c))
-            <div class="ech-aff pull-right" style="font-size: {{$font*.8}}%;">
-                <span data-unicode="f128" class="fa fa-question">&nbsp;</span>
+        <!-- Add Indicator-->
+        @if (!empty($indicator))
+            <div class="ech-aff" style="font-size:{{$font*0.8}}%;">
+                {{$indicator}}
             </div>
         @endif
 
     </div>
 
-@if(!empty($default) && !is_bool($default))
+@if(!empty($fotw))
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">

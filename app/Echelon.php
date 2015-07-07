@@ -48,19 +48,45 @@ class Echelon extends Model {
         'bmp'
     ];
 
+    private $identityColors = [
+        'A' => '80E0FF', // 128-224-255
+        'D' => '80E0FF',
+        'F' => '80E0FF',
+        'G' => 'FFFF80', // 255-255-128
+        'H' => 'FF8080', //255-128-128
+        'J' => 'FF8080',
+        'K' => 'FF8080',
+        'L' => 'AAFFAA', // 170-255-170
+        'M' => '80E0FF',
+        'N' => 'AAFFAA',
+        'P' => 'FFFF80',
+        'S' => 'FF8080',
+        'U' => 'FFFF80',
+        'W' => 'FFFF80'
+    ];
+
+    public $identity;
+    public $echelon;
+    public $default_image;
+    public $image;
+    public $sidc;
+    public $indicator;
+    public $is2525c;
+    public $note;
+    public $nocolor;
+
     /**
      * Extract the echelon from the sidc if available.  Default to NULL (--)otherwise.
      *
-     * @param null $sidc
      * @return string
      */
-    public function extractEchelonFromSidc($sidc=null) {
-        if (!empty($sidc) && strlen($sidc) >= 10) {
-            $echelon = substr($sidc, 10, 2);
+    public function getEchelonFromSidc() {
+        if (!empty($this->sidc) && strlen($this->sidc) >= 10) {
+            $this->echelon = substr($this->sidc, 10, 2);
         } else {
-            $echelon = "--";
+            $this->echelon = "--";
         }
-        return($echelon);
+        return($this->echelon);
     }
 
     /**
@@ -68,31 +94,31 @@ class Echelon extends Model {
      * Note that the N echelon only is valid for the MIL-STD-2525C set.  If the echelon is not "valid", then
      * send it on as is to be positioned in place of the echelon.  In the end, only the first eight characters will be used.
      *
-     * @param null $echelon
-     * @param null $setc
      * @return null
      */
-    public function getEchelon($echelon=null, $setc=null)
+    public function getEchelon()
     {
-        if (!empty($setc)) {
+        if (!empty($this->is2525c)) {
             $pattern = '/^[A-Na-n-]$/';
         } else {
             $pattern = '/^[A-Ma-m-]$/';
         }
 
-        if (!empty($echelon)) {
+        if (!empty($this->echelon)) {
             // we are only interested in the last place.
-            $ech1 = strtoupper(substr($echelon, strlen($echelon) - 1, 1));
+            $ech1 = strtoupper(substr($this->echelon, strlen($this->echelon) - 1, 1));
 
             if (preg_match($pattern, $ech1) && !empty($this->echelons[$ech1])) {
                 // return lookup
-                return ($this->echelons[$ech1]);
+                $this->echelon = $this->echelons[$ech1];
             } else {
-                return($echelon);
+                $this->echelon = $this->echelon;
             }
+            return($this->echelon);
         }
         // default
-        return($this->echelons['-']);
+        $this->echelon = '-';
+        return($this->echelon);
     }
 
     /**
@@ -118,7 +144,7 @@ class Echelon extends Model {
             }
         }
 
-        $default_image = '../resources/assets/img/frd.png';
+        $default_image = $this->getIdentityColorSwatch($this->identity);
         $image_info = getimagesize($default_image);
         return([
             'height' => $image_info[1],
@@ -126,6 +152,49 @@ class Echelon extends Model {
             'url' => $default_image,
             'default' => true
         ]);
+    }
+
+    public function getIdentityColor()
+    {
+        if (!empty($this->identity) && preg_match('/^[ADFGHJKLMNPSUWadfghjklmnpsuw]$/',$this->identity)){
+            $color = $this->identityColors[strtoupper($this->identity)];
+        } else {
+            $color = $this->identityColors['U'];
+        }
+        return($color);
+    }
+
+    /**
+     * Return the color swatch that corresponds to the identity given.
+     *
+     * @return string
+     */
+    public function getIdentityColorSwatch(){
+
+        if (!empty($this->identity) && preg_match('/^[ADFGHJKLMNPSUWadfghjklmnpsuw]$/',$this->identity)){
+            switch (strtoupper($this->identity)) {
+                case 'A':
+                case 'D':
+                case 'F':
+                case 'M':
+                    $return_color = '../resources/assets/img/swatches/crystal_blue.png';
+                break;
+                case 'H':
+                case 'J':
+                case 'K':
+                case 'S':
+                    $return_color = '../resources/assets/img/swatches/salmon.png';
+                break;
+                case 'L':
+                case 'N':
+                    $return_color = '../resources/assets/img/swatches/bamboo_green.png';
+                    break;
+                default:
+                    $return_color = '../resources/assets/img/swatches/light_yellow.png';
+            }
+            return $return_color;
+        }
+        return '../resources/assets/img/swatches/light_yellow.png';
     }
 
     /**
@@ -138,13 +207,15 @@ class Echelon extends Model {
      * @param null $symbol_set
      * @return bool
      */
-    public function testFor2525c($symbol_set=null){
+    public function is2525c($symbol_set=null){
         if (!empty($symbol_set)){
             if (preg_match('/[Bb]$/', $symbol_set)) {
-                return false;
+                $this->is2525c = false;
+                return $this->is2525c;
             }
         }
-        return true;
+        $this->is2525c = true;
+        return $this->is2525c;
     }
 
     /**
@@ -153,27 +224,44 @@ class Echelon extends Model {
      * @param null $sidc
      * @return bool|string
      */
-    public function extractAffiliationFromSidc($sidc=null){
+    public function getIdentityFromSidc($sidc=null){
         if (!empty($sidc) && strlen($sidc) >= 2){
             $affiliation = substr($sidc, 1,1);
             if (preg_match('/^[ADGHJKLMNPSUWadghjklmnpsuw]$/', $affiliation)) {
                 return $affiliation;
             }
         }
+        return 'F';
+    }
+
+    /**
+     * Return the Identity if valid.
+     *
+     * @param null $source
+     * @return bool
+     */
+    public function testAndReturnIdent($source=null) {
+        if (!empty($source)) {
+            if (preg_match('/^[ADGHJKLMNPSUWadghjklmnpsuw]$/', substr($source,0,1))) {
+                return substr($source,0,1);
+            }
+        }
         return false;
     }
 
     /**
-     * test to see if the provided affiliation indicates the "assumed/suspect" condition.
+     * test to see if the provided Identity indicates the "assumed/suspect" condition.
      * Returning true means that we need to use the 'assumed/pending" dashed frame, or
      * use '?' indicator.
      *
-     * @param null $source
      * @return bool
      */
-    public function testAssumed($source=null) {
-        if (!empty($source)) {
-            if (preg_match('/^[AGMPSagmps]$/', $source)) {
+    public function isAssumed() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[AGMPSagmps]$/', $this->identity)) {
+                if (!$this->is2525c){
+                    $this->indicator = '?'.$this->indicator;
+                }
                 return true;
             }
         }
@@ -181,15 +269,72 @@ class Echelon extends Model {
     }
 
     /**
-     * test to see if the provided affiliation indicates the "joker" condition.
+     * test to see if the provided Identity indicates an "installation" condition.
+     * Returning true means that we need to use the "installation" indicator.
+     *
+     * @return bool
+     */
+    public function isInstallation() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[Hh]-$/', $this->identity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided Identity indicates a "neutral" condition.
+     *
+     * @return bool
+     */
+    public function isNeutral() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[LNln]$/', $this->identity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided Identity indicates the "unknown" condition.
+     *
+     * @return bool
+     */
+    public function isUnknown() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[UWuw]$/', $this->identity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided Identity indicates a "pending" condition.
+     *
+     * @return bool
+     */
+    public function isPending() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[GPgp]$/', $this->identity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided Identity indicates a "joker" condition.
      * Returning true means that we need to use the "J" indicator.
      *
-     * @param null $source
      * @return bool
      */
-    public function testJoker($source=null) {
-        if (!empty($source)) {
-            if (preg_match('/^[Jj]$/', $source)) {
+    public function isJoker() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[Jj]$/', $this->identity)) {
+                $this->indicator = 'J';
                 return true;
             }
         }
@@ -197,15 +342,15 @@ class Echelon extends Model {
     }
 
     /**
-     * test to see if the provided affiliation indicates the "faker" condition.
+     * test to see if the provided Identity indicates a "faker" condition.
      * Returning true means that we need to use the "K" indicator.
      *
-     * @param null $source
      * @return bool
      */
-    public function testFaker($source=null) {
-        if (!empty($source)) {
-            if (preg_match('/^[Ff]$/', $source)) {
+    public function isFaker() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[Kk]$/', $this->identity)) {
+                $this->indicator = 'K';
                 return true;
             }
         }
@@ -213,15 +358,15 @@ class Echelon extends Model {
     }
 
     /**
-     * test to see if the provided affiliation indicates the "exercise" condition.
+     * test to see if the provided Identity indicates an "exercise" condition.
      * Returning true means that we need to use the "X" indicator.
      *
-     * @param null $source
      * @return bool
      */
-    public function testExercise($source=null) {
-        if (!empty($source)) {
-            if (preg_match('/^[DGLMWdglmw]$/', $source)) {
+    public function isExercise() {
+        if (!empty($this->identity)) {
+            if (preg_match('/^[DGLMWdglmw]$/', $this->identity)) {
+                $this->indicator = 'X';
                 return true;
             }
         }
@@ -234,7 +379,7 @@ class Echelon extends Model {
      * @param null $frame_image
      * @return bool
      */
-    public function testOrientation($frame_image=null) {
+    public function isLandscape($frame_image=null) {
         if (!empty($frame_image)) {
             if ($frame_image['width'] >= $frame_image['height'] ) {
                 return true; // landscape
