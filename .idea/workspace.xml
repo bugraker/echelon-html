@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0f65e7f-d92a-48b5-ac7f-c3013b6fa7cc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/img/swatches/bamboo_green.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/img/swatches/crystal_blue.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/img/swatches/light_yellow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/img/swatches/salmon.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/assets/img/frd.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/readme.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Echelon.php" afterPath="$PROJECT_DIR$/app/Echelon.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EchelonController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EchelonController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/css/echelon.css" afterPath="$PROJECT_DIR$/resources/assets/css/echelon.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/echelon/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/echelon/show.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -38,16 +31,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="show.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Echelon.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Echelon.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.125" vertical-offset="705" max-vertical-offset="6390">
+              <caret line="69" column="26" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EchelonController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EchelonController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.875" vertical-offset="2643" max-vertical-offset="3195">
+              <caret line="185" column="65" selection-start-line="185" selection-start-column="65" selection-end-line="185" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/echelon/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14807302" vertical-offset="302" max-vertical-offset="1770">
-              <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+            <state vertical-scroll-proportion="-9.25" vertical-offset="783" max-vertical-offset="1650">
+              <caret line="67" column="35" selection-start-line="67" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
               <folding>
-                <element signature="e#1402#1493#0#HTML" expanded="true" />
-                <element signature="e#1738#1829#0#HTML" expanded="true" />
-                <element signature="e#2033#2114#0#HTML" expanded="true" />
+                <element signature="e#615#660#0#HTML" expanded="true" />
+                <element signature="e#735#768#0#HTML" expanded="true" />
+                <element signature="e#1001#1035#0#HTML" expanded="true" />
+                <element signature="e#1166#1193#0#HTML" expanded="true" />
+                <element signature="e#1658#1738#0#HTML" expanded="true" />
+                <element signature="e#1983#2063#0#HTML" expanded="true" />
+                <element signature="e#2267#2346#0#HTML" expanded="true" />
+                <element signature="e#2569#2674#0#HTML" expanded="true" />
+                <element signature="e#2816#2921#0#HTML" expanded="true" />
+                <element signature="e#3039#3146#0#HTML" expanded="true" />
+                <element signature="e#3282#3389#0#HTML" expanded="true" />
+                <element signature="e#3547#3682#0#HTML" expanded="true" />
+                <element signature="e#3751#3838#0#HTML" expanded="true" />
+                <element signature="e#4012#4068#0#HTML" expanded="true" />
+                <element signature="e#4232#4288#0#HTML" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="echelon.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/assets/css/echelon.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="654" max-vertical-offset="1350">
+              <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.31318682" vertical-offset="1584" max-vertical-offset="2205">
+              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,11 +113,11 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/default.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/echelon/asdf.blade.php" />
         <option value="$PROJECT_DIR$/app/Echelon_orig.php" />
-        <option value="$PROJECT_DIR$/resources/assets/css/echelon.css" />
         <option value="$PROJECT_DIR$/app/Echelon.php" />
+        <option value="$PROJECT_DIR$/resources/assets/css/echelon.css" />
+        <option value="$PROJECT_DIR$/resources/views/echelon/show.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EchelonController.php" />
         <option value="$PROJECT_DIR$/readme.md" />
-        <option value="$PROJECT_DIR$/resources/views/echelon/show.blade.php" />
       </list>
     </option>
   </component>
@@ -82,10 +130,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="125" />
-    <option name="y" value="22" />
-    <option name="width" value="1215" />
-    <option name="height" value="661" />
+    <option name="x" value="413" />
+    <option name="y" value="92" />
+    <option name="width" value="1014" />
+    <option name="height" value="722" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -258,20 +306,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="echelon-html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="echelon-html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -291,28 +325,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Http" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="echelon-html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="echelon-html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Http" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Requests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -378,6 +390,9 @@
       <BehatRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -385,9 +400,6 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -403,7 +415,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="125" y="22" width="1215" height="661" extended-state="0" />
+    <frame x="413" y="92" width="1014" height="722" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -412,7 +424,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23955669" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2685185" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -443,9 +455,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23955669" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -469,14 +481,112 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/Echelon.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1335" max-vertical-offset="6345">
+          <caret line="100" column="37" selection-start-line="100" selection-start-column="37" selection-end-line="100" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EchelonController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2970">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/echelon/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="302" max-vertical-offset="1770">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding>
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/echelon/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="302" max-vertical-offset="1770">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding>
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/echelon/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1402#1493#0#HTML" expanded="true" />
-            <element signature="e#1738#1829#0#HTML" expanded="true" />
-            <element signature="e#2033#2114#0#HTML" expanded="true" />
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -499,7 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2417" max-vertical-offset="2910">
           <caret line="175" column="42" selection-start-line="175" selection-start-column="42" selection-end-line="175" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -507,7 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3300" max-vertical-offset="5130">
           <caret line="189" column="52" selection-start-line="189" selection-start-column="52" selection-end-line="189" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -516,9 +624,21 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1695">
           <caret line="77" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
-            <element signature="e#1402#1493#0#HTML" expanded="true" />
-            <element signature="e#1738#1829#0#HTML" expanded="true" />
-            <element signature="e#2033#2114#0#HTML" expanded="true" />
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -541,7 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2130" max-vertical-offset="2910">
           <caret line="165" column="24" selection-start-line="165" selection-start-column="24" selection-end-line="165" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -549,7 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3300" max-vertical-offset="5130">
           <caret line="189" column="52" selection-start-line="189" selection-start-column="52" selection-end-line="189" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -568,9 +686,21 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1695">
           <caret line="71" column="43" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
           <folding>
-            <element signature="e#1402#1493#0#HTML" expanded="true" />
-            <element signature="e#1738#1829#0#HTML" expanded="true" />
-            <element signature="e#2033#2114#0#HTML" expanded="true" />
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -579,7 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1650" max-vertical-offset="2325">
           <caret line="138" column="107" selection-start-line="138" selection-start-column="107" selection-end-line="138" selection-end-column="107" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -587,7 +716,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2670" max-vertical-offset="4170">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -606,9 +734,21 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1402#1493#0#HTML" expanded="true" />
-            <element signature="e#1738#1829#0#HTML" expanded="true" />
-            <element signature="e#2033#2114#0#HTML" expanded="true" />
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -617,7 +757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1650" max-vertical-offset="2325">
           <caret line="138" column="107" selection-start-line="138" selection-start-column="107" selection-end-line="138" selection-end-column="107" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -625,7 +764,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2670" max-vertical-offset="4170">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -708,40 +846,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/css/echelon.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82591873" vertical-offset="668" max-vertical-offset="1185">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Echelon.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25" vertical-offset="1335" max-vertical-offset="6345">
-          <caret line="100" column="37" selection-start-line="100" selection-start-column="37" selection-end-line="100" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22997947" vertical-offset="1508" max-vertical-offset="2160">
-          <caret line="108" column="1" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EchelonController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17849898" vertical-offset="1217" max-vertical-offset="2970">
-          <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/misc/samples/freindly.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -757,15 +861,62 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Echelon.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.125" vertical-offset="705" max-vertical-offset="6390">
+          <caret line="69" column="26" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/css/echelon.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="654" max-vertical-offset="1350">
+          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/echelon/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14807302" vertical-offset="302" max-vertical-offset="1770">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+        <state vertical-scroll-proportion="-9.25" vertical-offset="783" max-vertical-offset="1650">
+          <caret line="67" column="35" selection-start-line="67" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
           <folding>
-            <element signature="e#1402#1493#0#HTML" expanded="true" />
-            <element signature="e#1738#1829#0#HTML" expanded="true" />
-            <element signature="e#2033#2114#0#HTML" expanded="true" />
+            <element signature="e#615#660#0#HTML" expanded="true" />
+            <element signature="e#735#768#0#HTML" expanded="true" />
+            <element signature="e#1001#1035#0#HTML" expanded="true" />
+            <element signature="e#1166#1193#0#HTML" expanded="true" />
+            <element signature="e#1658#1738#0#HTML" expanded="true" />
+            <element signature="e#1983#2063#0#HTML" expanded="true" />
+            <element signature="e#2267#2346#0#HTML" expanded="true" />
+            <element signature="e#2569#2674#0#HTML" expanded="true" />
+            <element signature="e#2816#2921#0#HTML" expanded="true" />
+            <element signature="e#3039#3146#0#HTML" expanded="true" />
+            <element signature="e#3282#3389#0#HTML" expanded="true" />
+            <element signature="e#3547#3682#0#HTML" expanded="true" />
+            <element signature="e#3751#3838#0#HTML" expanded="true" />
+            <element signature="e#4012#4068#0#HTML" expanded="true" />
+            <element signature="e#4232#4288#0#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EchelonController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.875" vertical-offset="2643" max-vertical-offset="3195">
+          <caret line="185" column="65" selection-start-line="185" selection-start-column="65" selection-end-line="185" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31318682" vertical-offset="1584" max-vertical-offset="2205">
+          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

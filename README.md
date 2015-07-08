@@ -100,7 +100,8 @@ Available URL Arguments:
                 U => UNKNOWN                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ ?
                 W => EXERCISE UNKNOWN           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
              
- *size     - Size override.  Overrides the default overall size of 100px.
+ *size     - Size override.  Overrides the default overall size of 100px square.  My also be overridden
+             by the "notex" parameter.
  
  *set      - Overrides the default MIL-STD-2525C set.  Entry last character: "b" = MIL-STD-2525B, "c" = MIL-STD-2525C.  It should be noted that
              the size of the MIL-STD-2525B symbols are reduced 80% so that there is enough room for the assumed friend indicator.
@@ -109,7 +110,9 @@ Available URL Arguments:
  
  *note     - Adds 12 characters under the frame (not mil spec).
  
- *nc       - Do not color the SIDC frame if an image is displayed (&nc=true).
+ *notex    - Overrides the "size" parameter and adds extended note under the frame (not mil spec). Note: "\n" are converted to "<br>".
+ 
+ *nc       - Do not color the SIDC frame if an image is displayed ( &nc or &nc=true).
 
 Example:  Two examples...
 

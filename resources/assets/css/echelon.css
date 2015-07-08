@@ -2,9 +2,10 @@
     background-color: #3b3b3b;
 }
 
-.ech-aff {
-    margin-left: 86%;
-    margin-top: 0%;
+.ech-indicator {
+    position: absolute;
+    margin-left: 88%;
+    margin-top: -12%;
     font-weight: bold;
     background-color: #fefefe;
 }
@@ -56,8 +57,18 @@
 }
 
 .ech-note {
+    position:relative;
     font-weight: bold;
+    line-height: 90%;
     word-break: break-all;
+    background-color: #fefefe;
+}
+
+.ech-notex {
+    position:relative;
+    font-weight: bold;
+    line-height: 90%;
+    word-break: normal;
     background-color: #fefefe;
 }
 

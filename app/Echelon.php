@@ -22,7 +22,7 @@ class Echelon extends Model {
 
     // echelon lookup
     private $echelons = [
-        '-' => "&nbsp;", // NULL
+        '-' => '', // NULL
         'A' => '&Oslash;', // TEAM/CREW
         'B' => '&#x26ab;', // SQUAD
         'C' => '&#x26ab;&nbsp;&#x26ab;', // SECTION
@@ -48,21 +48,21 @@ class Echelon extends Model {
         'bmp'
     ];
 
-    private $identityColors = [
-        'A' => '80E0FF', // 128-224-255
-        'D' => '80E0FF',
-        'F' => '80E0FF',
-        'G' => 'FFFF80', // 255-255-128
-        'H' => 'FF8080', //255-128-128
-        'J' => 'FF8080',
-        'K' => 'FF8080',
-        'L' => 'AAFFAA', // 170-255-170
-        'M' => '80E0FF',
-        'N' => 'AAFFAA',
-        'P' => 'FFFF80',
-        'S' => 'FF8080',
-        'U' => 'FFFF80',
-        'W' => 'FFFF80'
+    private $colorByIdentity = [
+        'A' => '#80E0FF', // 128-224-255
+        'D' => '#80E0FF',
+        'F' => '#80E0FF',
+        'G' => '#FFFF80', // 255-255-128
+        'H' => '#FF8080', //255-128-128
+        'J' => '#FF8080',
+        'K' => '#FF8080',
+        'L' => '#AAFFAA', // 170-255-170
+        'M' => '#80E0FF',
+        'N' => '#AAFFAA',
+        'P' => '#FFFF80',
+        'S' => '#FF8080',
+        'U' => '#FFFF80',
+        'W' => '#FFFF80'
     ];
 
     public $identity;
@@ -73,6 +73,7 @@ class Echelon extends Model {
     public $indicator;
     public $is2525c;
     public $note;
+    public $notex;
     public $nocolor;
 
     /**
@@ -157,9 +158,9 @@ class Echelon extends Model {
     public function getIdentityColor()
     {
         if (!empty($this->identity) && preg_match('/^[ADFGHJKLMNPSUWadfghjklmnpsuw]$/',$this->identity)){
-            $color = $this->identityColors[strtoupper($this->identity)];
+            $color = $this->colorByIdentity[strtoupper($this->identity)];
         } else {
-            $color = $this->identityColors['U'];
+            $color = $this->colorByIdentity['U'];
         }
         return($color);
     }
@@ -211,11 +212,13 @@ class Echelon extends Model {
         if (!empty($symbol_set)){
             if (preg_match('/[Bb]$/', $symbol_set)) {
                 $this->is2525c = false;
-                return $this->is2525c;
+            } else {
+                $this->is2525c = true;
             }
+        } else {
+            $this->is2525c = true;
         }
-        $this->is2525c = true;
-        return $this->is2525c;
+        return($this->is2525c);
     }
 
     /**

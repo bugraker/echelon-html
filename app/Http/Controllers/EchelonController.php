@@ -38,12 +38,17 @@ class EchelonController extends Controller {
 
         /** URI parameters **/
 
+        /** DEBUG **/
+        if (!empty($_REQUEST) && array_key_exists('debug', $_REQUEST)) {
+            $is_debug = true;
+        }
+
         /** SIDC **/
         if (!empty($_REQUEST['sidc'])) {
             $this->model->sidc = $_REQUEST['sidc'];
         } else {
-            // alrighty then, just default to SFGP-----------
-            $this->model->sidc = 'SFGP-----------';
+            // alrighty then, just default to SUGP - Unknown
+            $this->model->sidc = 'SUGP-----------';
         }
 
         /** IDENT **/
@@ -55,13 +60,15 @@ class EchelonController extends Controller {
         /** ECH **/
         // echelon override -  a one or two place value that overrides the sidc or default sidc.
         if (!empty($_REQUEST['ech'])) {
-            $ech = substr($_REQUEST['ech'], 0, 8);
+            $ech = substr($_REQUEST['ech'], 0, 8); // 8 char limit
         }
 
         /** NOTE **/
-        // note override (not mil spec) -  add a short note under frame.
-        if (!empty($_REQUEST['note'])) {
-            $this->model->note = substr($_REQUEST['note'], 0, 12);
+        // note (not mil spec) -  add a short note under frame.
+        if (!empty($_REQUEST['notex'])) {
+            $this->model->notex = $_REQUEST['notex']; // limit to 20 characters
+        } elseif (!empty($_REQUEST['note'])) {
+            $this->model->note = substr($_REQUEST['note'], 0, 20); // limit to 20 characters
         } else {
             $this->model->note = '';
         }
@@ -71,7 +78,7 @@ class EchelonController extends Controller {
         if (!empty($_REQUEST['set'])) {
             $set = $_REQUEST['set'];
         } else {
-            $set = 'mil-std-2525c';
+            $set = 'c'; // default set, MIL-STD-2525C
         }
 
         /** SIZE **/
@@ -85,12 +92,11 @@ class EchelonController extends Controller {
         }
 
         /** NC */
-        if (!empty($_REQUEST['nc'])) {
+        if (!empty($_REQUEST) && array_key_exists('nc', $_REQUEST)) {
             $this->model->nocolor = true;
         } else {
             $this->model->nocolor = false;
         }
-
 
         /** START **/
 
@@ -184,7 +190,16 @@ class EchelonController extends Controller {
         $output['nocolor'] = $this->model->nocolor;
         $output['fotw'] = (!empty($frame_image['fotw']) ? $frame_image['fotw'] : false) ; // image from the Flags of the World website
 
-        $output['note'] = $this->model->note;
+        if (!empty($this->model->notex)) {
+            $output['notex'] = htmlentities(str_replace('\n','<br>',$this->model->notex));
+        } elseif (!empty($this->model->note)) {
+            $output['note'] = htmlentities($this->model->note);
+        }
+
+
+        if (!empty($is_debug)) {
+            dd($output);
+        }
 
         header('Content-Type: text/html; charset=utf-8');
         return view('echelon.show', $output);
