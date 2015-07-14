@@ -10,9 +10,22 @@
  * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
  * from the net (experimental).
  *
- * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
- * All Rights Reserved
  *
+ * License:
+ *
+ *  Copyright 2015 George P. Simcox, email: geo.simcox@gmail.com.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 use App\Echelon;
@@ -73,12 +86,12 @@ class EchelonController extends Controller {
             $this->model->note = '';
         }
 
-        /** SET **/
-        // echelon override -  a one or two place value that overrides the sidc or default sidc.
-        if (!empty($_REQUEST['set'])) {
-            $set = $_REQUEST['set'];
+        /** 2525b **/
+        // frame set override.  Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set.
+        if (array_key_exists('2525b', $_REQUEST)) {
+            $this->model->is2525c = false;
         } else {
-            $set = 'c'; // default set, MIL-STD-2525C
+            $this->model->is2525c = true;
         }
 
         /** SIZE **/
@@ -92,7 +105,8 @@ class EchelonController extends Controller {
         }
 
         /** NC */
-        if (!empty($_REQUEST) && array_key_exists('nc', $_REQUEST)) {
+        //
+        if (array_key_exists('nc', $_REQUEST)) {
             $this->model->nocolor = true;
         } else {
             $this->model->nocolor = false;
@@ -147,21 +161,11 @@ class EchelonController extends Controller {
             $this->model->echelon = $this->model->getEchelonFromSidc(); // size 2 chars
         }
 
-        $output['is_2525c'] = $this->model->is2525c($set);
+        $this->model->indicator = ""; // init indicator
 
-        if (strlen($this->model->echelon) <= 2) {
-            $output['echelon'] = $this->model->getEchelon(); // get echelon (convert)
-        } else {
-            $output['echelon'] = $this->model->echelon;  // use as-is
-        }
-
-        if (strlen($this->model->echelon) <=2 && $this->model->isInstallation($this->model->echelon)) {
-            $output['is_installation'] = true;
-        } else {
-            $output['is_installation'] = false;
-        }
-
-        $this->model->indicator = "";
+        $output['is_2525c'] = $this->model->is2525c;
+        $output['is_installation'] = $this->model->isInstallation(); // must come before use of getEchelon method.
+        $output['echelon'] = $this->model->getEchelon();
         $output['is_faker'] = $this->model->isFaker();
         $output['is_joker'] = $this->model->isJoker();
         $output['is_exercise'] = $this->model->isExercise();
@@ -186,8 +190,19 @@ class EchelonController extends Controller {
         $output['image_txt'] = "Is hiding"; // missing image text
         $output['default'] = $frame_image['default'];
 
-        $output['bg_color'] = $this->model->getIdentityColor();
-        $output['nocolor'] = $this->model->nocolor;
+        // frame color
+        $output['color'] = $this->model->getIdentityColor();
+
+        // frame background color
+        if (!empty($this->model->is_2525c) && !empty($this->model->is_assumed) && !empty($this->model->nocolor)) {
+            $output['bg_color'] = 'white';
+        } elseif (!empty($output['default']) || !empty($this->model->nocolor)) {
+            $output['bg_color'] = 'black';
+        } else {
+            $output['bg_color'] = $this->model->getIdentityColor();
+        }
+
+        //$output['nocolor'] = $this->model->nocolor;
         $output['fotw'] = (!empty($frame_image['fotw']) ? $frame_image['fotw'] : false) ; // image from the Flags of the World website
 
         if (!empty($this->model->notex)) {

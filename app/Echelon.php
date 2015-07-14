@@ -1,4 +1,19 @@
 <?php namespace App;
+/*
+ * Copyright 2015 George P. Simcox, email: geo.simcox@gmail.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * Echelon - HTML
@@ -10,9 +25,22 @@
  * If no image is supplied, and a sidc w/ country code is provided, then an image will be obtained from
  * from the net (experimental).
  *
- * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
- * All Rights Reserved
  *
+ * License:
+ *
+ *  Copyright 2015 George P. Simcox, email: geo.simcox@gmail.com.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 use Carbon\Carbon;
@@ -22,7 +50,7 @@ class Echelon extends Model {
 
     // echelon lookup
     private $echelons = [
-        '-' => '', // NULL
+        '-' => '&nbsp;', // NULL
         'A' => '&Oslash;', // TEAM/CREW
         'B' => '&#x26ab;', // SQUAD
         'C' => '&#x26ab;&nbsp;&#x26ab;', // SECTION
@@ -72,6 +100,7 @@ class Echelon extends Model {
     public $sidc;
     public $indicator;
     public $is2525c;
+    public $is_assumed;
     public $note;
     public $notex;
     public $nocolor;
@@ -100,9 +129,9 @@ class Echelon extends Model {
     public function getEchelon()
     {
         if (!empty($this->is2525c)) {
-            $pattern = '/^[A-Na-n-]$/';
+            $pattern = '/[A-Na-n-]$/';
         } else {
-            $pattern = '/^[A-Ma-m-]$/';
+            $pattern = '/[A-Ma-m-]$/';
         }
 
         if (!empty($this->echelon)) {
@@ -265,10 +294,13 @@ class Echelon extends Model {
                 if (!$this->is2525c){
                     $this->indicator = '?'.$this->indicator;
                 }
-                return true;
+                $this->is_assumed = true;
             }
+        } else {
+            $this->is_assumed = false;
         }
-        return false;
+
+        return($this->is_assumed);
     }
 
     /**
@@ -278,8 +310,8 @@ class Echelon extends Model {
      * @return bool
      */
     public function isInstallation() {
-        if (!empty($this->identity)) {
-            if (preg_match('/^[Hh]-$/', $this->identity)) {
+        if (!empty($this->echelon)) {
+            if (preg_match('/^[Hh]\-$/', $this->echelon)) {
                 return true;
             }
         }

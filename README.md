@@ -12,14 +12,41 @@
  The image rendered may be controlled (affected) by providing an overriding Identity (ident) parameter on the url, MIL-STD-2525 symbol set (B - reduced 80% or C), the 
  output size, image, and unit size (mobility ignored).  Please see "Usage" below.
 
+### Compatability
+
+Tested and works with:
+
+* Apple Safari 7.1.2
+* Google Chrome 43.0
+* Mozilla Firefox 38.0.5
+* MS Internet Explorer 11
+
+Does not work with
+
+* MS Internet Explorer 8
+
+### License
+
+Copyright 2015 George P. Simcox, email: geo.simcox@gmail.com.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
 ## Install & Configuration
 
 The Echelon-HTML tool is a web package designed to be installed on your web server.  It was built using the 
 PHP framework: Laravel.  The root is located a ./echelon-html/public.
 
-- Prerequisites:
-
-You will need to have a web server with the following installed:
+- Prerequisites, you will need to have a web server with the following installed:
  * The Echelon - HTML software
  * a web (httpd) server to install the software on.
  * PHP version 5.5 +
@@ -28,15 +55,15 @@ You will need to have a web server with the following installed:
 - Installation
 
   * Download/clone the tool in your chosen directory.
-  * In a terminal, cd to the echelon-html directory and run:
-       composer install
+  * In a terminal, cd to the echelon-html directory and run: **composer install**
        
        Composer will read the composer.lock & composer.json files and will download and 
        install all required software.
-
+  * create a new .env file by copying the existing .env.example.
+  * run the command: php artisan key:generate.
   * In, your httpd server, configure it to serve out the public directory of the Echelon - HTML package.
        web_directory/echelon-html/public
-
+       
 ## Usage
 
 Navigate to the web page.  A default SFGP----------- symbol is displayed on a white 100x100 square.  Screen cap 
@@ -44,9 +71,9 @@ the square and save.  Use the overrides to alter the end result.
 
 Available URL Arguments:
 
- *sidc     - The Symbol ID Code to use (See the MIL-STD-2525 standard document for proper format).  This is normally 
-             a 15 char string, however this tool does not validate the length.  The tool will glean as much info as 
-             available. Note: positions 1, 3-10, and 15 are ignored.  Note: the Function ID (5-10) are ignored.
+ * sidc   - The Symbol ID Code to use (See the MIL-STD-2525 standard document for proper format).  This is normally 
+            a 15 char string, however this tool does not validate the length.  The tool will glean as much info as 
+            available. Note: positions 1, 3-10, and 15 are ignored.  Note: the Function ID (5-10) are ignored.
          
                Info checked (by position):
                   2     - Affiliation. Used to generate appropriate frame or indicator.
@@ -55,8 +82,8 @@ Available URL Arguments:
                           an attempt to produce an image will be made to the website "Flags of the World". (not mil 
                           spec).
                       
- *ech      - Echelon (size/mobility) override (mobility ignored).  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters
-             are displayed (not mil spec).  Notes: Only size is recognized, mobility is ignored. Echelon "N" is only valid for MIL_STD_2525C.
+ * ech    - Echelon (size/mobility) override (mobility ignored).  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters
+            are displayed (not mil spec).  Notes: Only size is recognized, mobility is ignored. Echelon "N" is only valid for MIL_STD_2525C.
          
                 - =>  NULL
                 A => TEAM/CREW
@@ -74,68 +101,49 @@ Available URL Arguments:
                 M => REGION
                 N => COMMAND (MIL-STD-2525C only)
 
- *ident    - Override the identity  (affiliation).  This affects if the solid frame is modified.  an "assumed" 
-             affiliation (A) will; 
+ * ident  - Override the identity  (affiliation).  This affects if the solid frame is modified.  an "assumed" 
+            affiliation (A) will; 
                 1) for MiL-STD-2525B a "Question Mark" indicator is added to the upper right of the Symbol border, 
                 2) for MIL-STD-2525C the solid border is replaced by a dashed border. If an image is defined, either 
                    through the ident parameter or by the sidc county code, the dashed border whitespace will be colored
                    to match the identity
               
-                A => ASSUMED FRIEND (dashed or ?)
-                F => FRIEND 
-                
-              The following idents frame shapes and are ignored, although they will be rendered with a SFGP frame, unless they are marked with 
-              "(dashed or ?)", in which case they are rendered as with a SAGF frame:
-              
-                D => EXERCISE FRIEND            2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
-                G => EXERCISE PENDING           2525C: dashed SFGP frame or X, yellow   -  2525B: solid SFGP frame w/ X
-                H => HOSTILE                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame
-                J => JOKER                      2525C: solid SFGP frame w/ J            -  2525B: solid SFGP frame w/ J
-                K => FAKER                      2525C: solid SFGP frame w/ F            -  2525B: solid SFGP frame w/ F
-                L => EXERCISE NEUTRAL           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
-                M => EXERCISE ASSUMED FRIEND    2525C: dashed SFGP frame or ?, blue     -  2525B: solid SFGP frame w/ ?X
-                N => NEUTRAL                    2525C: solid SFGP frame                 -  2525B: solid SFGP frame
-                P => PENDING                    2525C: dashed SFGP frame or ?, yellow   -  2525B: solid SFGP frame
-                S => SUSPECT                    2525C: dashed SFGP frame or ?, red      -  2525B: solid SFGP frame w/ ?
-                U => UNKNOWN                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ ?
-                W => EXERCISE UNKNOWN           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
+                    A => ASSUMED FRIEND (dashed or ?)
+                    F => FRIEND 
+                    
+                  The following idents frame shapes and are ignored, although they will be rendered with a SFGP frame, unless they are marked with 
+                  "(dashed or ?)", in which case they are rendered as with a SAGF frame:
+                  
+                    D => EXERCISE FRIEND            2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
+                    G => EXERCISE PENDING           2525C: dashed SFGP frame or X, yellow   -  2525B: solid SFGP frame w/ X
+                    H => HOSTILE                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame
+                    J => JOKER                      2525C: solid SFGP frame w/ J            -  2525B: solid SFGP frame w/ J
+                    K => FAKER                      2525C: solid SFGP frame w/ F            -  2525B: solid SFGP frame w/ F
+                    L => EXERCISE NEUTRAL           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
+                    M => EXERCISE ASSUMED FRIEND    2525C: dashed SFGP frame or ?, blue     -  2525B: solid SFGP frame w/ ?X
+                    N => NEUTRAL                    2525C: solid SFGP frame                 -  2525B: solid SFGP frame
+                    P => PENDING                    2525C: dashed SFGP frame or ?, yellow   -  2525B: solid SFGP frame
+                    S => SUSPECT                    2525C: dashed SFGP frame or ?, red      -  2525B: solid SFGP frame w/ ?
+                    U => UNKNOWN                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ ?
+                    W => EXERCISE UNKNOWN           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
              
- *size     - Size override.  Overrides the default overall size of 100px square.  My also be overridden
-             by the "notex" parameter.
+ * size   - Size override.  Overrides the default overall size of 100px square.  The size may also be overridden
+            by the "notex" parameter.
  
- *set      - Overrides the default MIL-STD-2525C set.  Entry last character: "b" = MIL-STD-2525B, "c" = MIL-STD-2525C.  It should be noted that
-             the size of the MIL-STD-2525B symbols are reduced 80% so that there is enough room for the assumed friend indicator.
+ * 2525b  - Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set. Ex: &2525b
  
- *image    - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame. Not mil spec.
+ * image  - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame. Not mil spec.
  
- *note     - Adds 12 characters under the frame (not mil spec).
+ * note   - Adds 12 characters under the frame (not mil spec).
  
- *notex    - Overrides the "size" parameter and adds extended note under the frame (not mil spec). Note: "\n" are converted to "<br>".
+ * notex  - Overrides the "size" parameter and adds extended note under the frame (not mil spec). Note: "\n" are converted to "<br>".
  
- *nc       - Do not color the SIDC frame if an image is displayed ( &nc or &nc=true).
+ * nc     - Do not color the SIDC frame if an image is displayed. Ex: &nc
 
 Example:  Two examples...
 
           http://<echelon URL>?ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
                       -- or --
           http://<echelon URL>?sidc=SFGP-------DUS-&size=600
-
-### Compatability
-
-Tested and works with:
-
-* Apple Safari 7.1.2
-* Google Chrome 43.0
-* Mozilla Firefox 38.0.5
-* MS Internet Explorer 11
-
-Does not work with
-
-* MS Internet Explorer 8
-
-### License
-
- * Copyright (c) 2015 George Patton Simcox, email: geo.simcox@gmail.com
- * All Rights Reserved
 
 

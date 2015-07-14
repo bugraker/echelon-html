@@ -56,6 +56,12 @@
     top: 0px;
 }
 
+.ech-installation {
+    position: absolute;
+    top: -8px;
+    left: 0px;
+}
+
 .ech-note {
     position:relative;
     font-weight: bold;

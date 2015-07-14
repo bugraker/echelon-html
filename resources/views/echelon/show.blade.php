@@ -38,26 +38,26 @@
                     <div class="ech-frame text-center">
                         <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="ssgp" width="{{$frame*2}}px" height="{{$frame*2}}px">
 
-                            @if (!empty($is_assumed) && !empty($nocolor))
-                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:white;stroke:white;stroke-width:{{4*$multiplier}};"></rect>
-                            @elseif (!empty($default) || !empty($nocolor))
-                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill-opacity:0.0;fill:white;stroke:black;stroke-width:{{4*$multiplier}};"></rect>
-                            @else
-                                <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill:{{$bg_color}};stroke:{{$bg_color}};stroke-width:{{4*$multiplier}};"></rect>
-                            @endif
+                            <rect x="{{2*$multiplier}}" y="{{2*$multiplier}}" width="{{$frame - 4*$multiplier}}" height="{{($frame*0.667) - 4*$multiplier}}" style="fill:{{$bg_color}};stroke:{{$bg_color}};stroke-width:{{4*$multiplier}};"></rect>
 
                             @if (!empty($is_assumed) && !empty($is_2525c))
-                            <line x1="0" y1="{{2*$multiplier}}" x2="{{$frame}}" y2="{{2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="0" y1="{{$frame*0.667 - 2*$multiplier}}" x2="{{$frame}}" y2="{{$frame*0.667 - 2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="{{2*$multiplier}}" y1="0" x2="{{2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
-                            <line x1="{{$frame - 2*$multiplier}}" y1="0" x2="{{$frame - 2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
+                                <line x1="0" y1="{{2*$multiplier}}" x2="{{$frame}}" y2="{{2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
+                                <line x1="0" y1="{{$frame*0.667 - 2*$multiplier}}" x2="{{$frame}}" y2="{{$frame*0.667 - 2*$multiplier}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
+                                <line x1="{{2*$multiplier}}" y1="0" x2="{{2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
+                                <line x1="{{$frame - 2*$multiplier}}" y1="0" x2="{{$frame - 2*$multiplier}}" y2="{{$frame*0.667}}" style="stroke-dasharray:{{4*$multiplier}} {{4*$multiplier-1}};stroke:black;stroke-width:{{4*$multiplier}};"></line>
                             @endif
-
                         </svg>
                     </div>
                     <div class="ech-image text-center" style="top:{{4*$multiplier}}px;left:{{4*$multiplier}}px;width:{{$frame - 8*$multiplier}}px;height:{{($frame*.667) - 8*$multiplier}}px;">
                         <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 8*$multiplier}}px;height:{{($frame*0.667) - 8*$multiplier}}px;">
                     </div>
+                    @if (!empty($is_installation))
+                        <div class="ech-installation" style="top: -{{4*$multiplier}}px;">
+                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="installation" width="{{$frame*2}}px" height="{{$frame*2}}px">
+                            <line x1="{{$frame*0.333}}" y1="{{0}}" x2="{{$frame*0.666}}" y2="{{0}}" style="stroke:black;stroke-width:{{8*$multiplier}};"></line>
+                        </svg>
+                        </div>
+                    @endif
                 </div>
 
             <!-- Note (not part of mil spec) -->
