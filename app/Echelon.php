@@ -315,7 +315,7 @@ class Echelon extends Model {
      */
     public function isTaskForce() {
         if (!empty($this->echelon)) {
-            if (preg_match('/^[Bb][A-Ma-m-]$/', $this->echelon)) {
+            if (preg_match('/^[BDEGbdeg][A-Ma-m-]$/', $this->echelon)) {
                 return true;
             }
         }
