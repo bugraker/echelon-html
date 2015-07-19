@@ -129,16 +129,16 @@ class EchelonController extends Controller {
             // user spec'ed image
             $image = $_REQUEST['image'];
             $frame_image = $this->model->testImage($image);
-            $frame_image['default'] = false;
+            //$frame_image['default'] = false;
 
         } elseif (strlen($this->model->sidc) >= 15 && substr($this->model->sidc, 12, 2) <> '--') {
             // flag image
             $cc = strtolower(substr($this->model->sidc, 12, 2));
             $cc1 = $cc[0];
             $image = "https://flagspot.net/images/" . $cc1 . "/" . $cc . ".gif";
-            $frame_image = $this->model->testImage($image);
-            $frame_image['default'] = false;
-            $frame_image['fotw'] = true;
+            $frame_image = $this->model->testImage($image, true);
+            //$frame_image['default'] = false;
+            //$frame_image['fotw'] = true;
 
         } else {
             // default
@@ -164,6 +164,7 @@ class EchelonController extends Controller {
         $this->model->indicator = ""; // init indicator
 
         $output['is_2525c'] = $this->model->is2525c;
+        $output['is_task_force'] = $this->model->isTaskForce();
         $output['is_installation'] = $this->model->isInstallation(); // must come before use of getEchelon method.
         $output['echelon'] = $this->model->getEchelon();
         $output['is_faker'] = $this->model->isFaker();

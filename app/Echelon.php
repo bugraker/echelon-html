@@ -156,9 +156,10 @@ class Echelon extends Model {
      * code is used to get a flag.
      *
      * @param null $url
+     * @param bool $fotw
      * @return array
      */
-    public function testImage($url=null)
+    public function testImage($url=null,$fotw=false)
     {
         $test = $this->url_exists($url);
         if (!$test === false){
@@ -169,18 +170,21 @@ class Echelon extends Model {
                     'height' => $test[1],
                     'width' => $test[0],
                     'url' =>  $test['url'],
-                    'default' => false
+                    'default' => false,
+                    'fotw' => $fotw
                 ]);
             }
         }
 
+        // didn't get image - use color swatch
         $default_image = $this->getIdentityColorSwatch($this->identity);
         $image_info = getimagesize($default_image);
         return([
             'height' => $image_info[1],
             'width' => $image_info[0],
             'url' => $default_image,
-            'default' => true
+            'default' => true,
+            'fotw' => false
         ]);
     }
 
@@ -304,7 +308,22 @@ class Echelon extends Model {
     }
 
     /**
-     * test to see if the provided Identity indicates an "installation" condition.
+     * test to see if the provided Echelon indicates a "Task Force" condition.
+     * Returning true means that we need to use the "installation" indicator.
+     *
+     * @return bool
+     */
+    public function isTaskForce() {
+        if (!empty($this->echelon)) {
+            if (preg_match('/^[Bb][A-Ma-m-]$/', $this->echelon)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * test to see if the provided Echelon indicates an "installation" condition.
      * Returning true means that we need to use the "installation" indicator.
      *
      * @return bool

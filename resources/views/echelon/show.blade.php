@@ -51,11 +51,18 @@
                     <div class="ech-image text-center" style="top:{{4*$multiplier}}px;left:{{4*$multiplier}}px;width:{{$frame - 8*$multiplier}}px;height:{{($frame*.667) - 8*$multiplier}}px;">
                         <img src="{{$image}}" alt="{{$image_txt}}" style="width:{{$frame - 8*$multiplier}}px;height:{{($frame*0.667) - 8*$multiplier}}px;">
                     </div>
-                    @if (!empty($is_installation))
+                    @if (!empty($is_installation) || !empty($is_task_force))
+                        <div class="ech-installation" style="top: -{{8*$multiplier}}px;">
+                            <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="installation" width="{{$frame*2}}px" height="{{$frame*2}}px">
+                                <line x1="{{$frame*0.333}}" y1="{{0}}" x2="{{$frame*0.666}}" y2="{{0}}" style="stroke:black;stroke-width:{{16*$multiplier}};"></line>
+                            </svg>
+                        </div>
+                    @endif
+                    @if (!empty($is_task_force))
                         <div class="ech-installation" style="top: -{{4*$multiplier}}px;">
-                        <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="installation" width="{{$frame*2}}px" height="{{$frame*2}}px">
-                            <line x1="{{$frame*0.333}}" y1="{{0}}" x2="{{$frame*0.666}}" y2="{{0}}" style="stroke:black;stroke-width:{{8*$multiplier}};"></line>
-                        </svg>
+                            <svg viewBox="0 0 {{$frame*2}} {{$frame*2}}" id="installation" width="{{$frame*2}}px" height="{{$frame*2}}px">
+                                <line x1="{{$frame*0.333 + 4*$multiplier}}" y1="{{0}}" x2="{{$frame*0.666 - 4*$multiplier}}" y2="{{0}}" style="stroke:white;stroke-width:{{8*$multiplier}};"></line>
+                            </svg>
                         </div>
                     @endif
                 </div>
