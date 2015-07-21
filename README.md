@@ -1,16 +1,26 @@
 ## Echelon - HTML
  
  The purpose of this tool is to display a specified image within a MIL-STD-2525C (MIL-STD-2525B optional) friendly or assumed-friendly unit 
- frame with specified size indicator (echelon).
+ frame with specified symbol modifiers.  The modifiers are communicated by positions 11 & 12 of the MIL-2525 Symbol ID Code ('sidc') or 'ech' 
+ url parameters.
  
  The default will show a crystal blue frame, however the image parameter is used to specify an image to be contained within the frame.
- If the "sidc" parameter is used without an image specified, the tool will look for the country code in the specified Symbol ID Code and
+ If the "sidc" parameter is used without an valid image specified, the tool will look for the country code in the specified Symbol ID Code and
  attempt to obtain a corresponding flag image to display within the frame, otherwise the crystal blue is used, or other color as defined by 
  the sidc identity parameter.  Note, access to the derived flag image is subject to availability and internet connectivity - if it is desirous 
- that the image appear 100% of the time, then the user should specify the url in all cases.
+ that the a flag image appear 100% of the time, then the user should specify the url to a flag image in all cases.
  
- The image rendered may be controlled (affected) by providing an overriding Identity (ident) parameter on the url, MIL-STD-2525 symbol set (B - reduced 80% or C), the 
- output size, image, and unit size (mobility ignored).  Please see "Usage" below.
+ Note:  The image will be tested to see if it has landscape or portrait dimensions.  If it is landscape, the image will be stretched to fit the frame.
+ If the image is portrait, then its aspect ration will be maintained.  As with transparent images, the identity color will be the background color.
+ 
+ Symbol modifiers codes not currently supported are: 
+   * HQ post/staff - not displayed, although other modifier pieces will be displayed
+   * Mobility - not displayed, although the echelon text appear at the top of the symbol.  Ex:  'mp' will appear above the symbol instead of the 
+     'mp' indicator below the symbol
+   * Towed Array - not displayed, although the echelon text appear at the top of the symbol.
+    
+ 
+ Please see "Usage" below.
 
 ### Compatability
 
@@ -82,7 +92,8 @@ Available URL Arguments:
                           an attempt to produce an image will be made to the website "Flags of the World". (not mil 
                           spec).
                       
- * ech    - Echelon (size/mobility) override (mobility ignored).  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters
+ * ech | echelon
+          - Echelon (size/mobility) override (mobility ignored).  Overrides the sidc.  If not a valid echelon, the the first eight(8) characters
             are displayed (not mil spec).  Notes: Only size is recognized, mobility is ignored. Echelon "N" is only valid for MIL_STD_2525C.
          
                 - =>  NULL
@@ -100,6 +111,11 @@ Available URL Arguments:
                 L => ARMY/GROUP/FRONT
                 M => REGION
                 N => COMMAND (MIL-STD-2525C only)
+                
+            Note: although an "echelon" is technically a single character, the 'ech' parameter may be used to pass the two character 'symbol modifier'. 
+            Ex: 'h-' will add the 'installation' indicator to the symbol.  Currently, the 'headquarters', 'mobility', and 'towed array' are not displayed, 
+            although a text version of the symbol modifier may be added above the symbol.  I.E., the 'ns' towed array modifier will display the text: 'ns'
+            above the symbol. 'bm' will only show the region echelon and suppress the headquarters staff indicator.
 
  * ident  - Override the identity  (affiliation).  This affects if the solid frame is modified.  an "assumed" 
             affiliation (A) will; 
@@ -127,23 +143,28 @@ Available URL Arguments:
                     U => UNKNOWN                    2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ ?
                     W => EXERCISE UNKNOWN           2525C: solid SFGP frame w/ X            -  2525B: solid SFGP frame w/ X
              
- * size   - Size override.  Overrides the default overall size of 100px square.  The size may also be overridden
+ * size   - Size override.  Overrides the default overall size of 100px square (white square).  The size may also be overridden
             by the "notex" parameter.
  
- * 2525b  - Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set. Ex: &2525b
+ * 2525b  - Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set. Ex: http://localhost?sidc=sfgp&2525b
  
- * image  - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame. Not mil spec.
+ * img | image  
+          - Overrides the default crystal blue image.  Image will be re-sized to fit the MIL-STD-2525 frame.  Images with a 
+            portrait aspect ratio will not have the image's width stretched. (Not mil spec.)
  
  * note   - Adds 12 characters under the frame (not mil spec).
  
- * notex  - Overrides the "size" parameter and adds extended note under the frame (not mil spec). Note: "\n" are converted to "<br>".
+            Ex: http://localhost/echelon-html/public/?ech=d&size=100&image=https://upload.wikimedia.org/wikipedia/commons/7/79/Operation_Upshot-Knothole_-_Badger_001.jpg&note=What,%20me%20worry?
  
- * nc     - Do not color the SIDC frame if an image is displayed. Ex: &nc
+ * notex  - Overrides the "size" parameter and adds extended note under the frame  Note: "\n" are converted to "<br>". (not mil spec.)
+ 
+ * nc | nocolor
+          - Do not color the SIDC frame if an image is displayed. Ex: http://localhost?sidc=sfgp&nc
 
 Example:  Two examples...
 
-          http://<echelon URL>?ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
+          http://<echelon-html URL>?ech=m&size=300&image=https://www.gecop.mil/images/flags/pa.png
                       -- or --
-          http://<echelon URL>?sidc=SFGP-------DUS-&size=600
+          http://<echelon-html URL>?sidc=SFGP-------DUS-&size=600&2525b&nc
 
 

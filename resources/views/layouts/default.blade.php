@@ -45,7 +45,5 @@
     <body class="ech-body">
 
         @yield('content')
-        <br>
-        <p class="ech-footer">geo.simcox@gmail.com</p>
     </body>
 </html>

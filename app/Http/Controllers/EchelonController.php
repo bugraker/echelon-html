@@ -49,8 +49,6 @@ class EchelonController extends Controller {
         // This tool will accept a URL request and create an unit based on the URI's SIDC (optional),
         // and image (optional) parameters.
 
-        /** URI parameters **/
-
         /** DEBUG **/
         if (!empty($_REQUEST) && array_key_exists('debug', $_REQUEST)) {
             $is_debug = true;
@@ -74,6 +72,8 @@ class EchelonController extends Controller {
         // echelon override -  a one or two place value that overrides the sidc or default sidc.
         if (!empty($_REQUEST['ech'])) {
             $ech = substr($_REQUEST['ech'], 0, 8); // 8 char limit
+        } elseif (!empty($_REQUEST['echelon'])) {
+            $ech = substr($_REQUEST['echelon'], 0, 8); // 8 char limit
         }
 
         /** NOTE **/
@@ -89,13 +89,13 @@ class EchelonController extends Controller {
         /** 2525b **/
         // frame set override.  Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set.
         if (array_key_exists('2525b', $_REQUEST)) {
-            $this->model->is2525c = false;
+            $this->model->is_2525c = false;
         } else {
-            $this->model->is2525c = true;
+            $this->model->is_2525c = true;
         }
 
         /** SIZE **/
-        if (!empty($_REQUEST['size'])) {
+        if (!empty($_REQUEST['size']) && preg_match('/^\d*$/', $_REQUEST['size'])) {
             $size = $_REQUEST['size'];
             if ($size < 100) {
                 $size = 100; // min size allowed
@@ -105,43 +105,43 @@ class EchelonController extends Controller {
         }
 
         /** NC */
-        //
-        if (array_key_exists('nc', $_REQUEST)) {
-            $this->model->nocolor = true;
+        // Normally, if an image is displayed within the frame, the frame color is changed to reflect the identity.  This overrides this.
+        if (array_key_exists('nc', $_REQUEST) || array_key_exists('nocolor', $_REQUEST)) {
+            $this->model->is_nocolor = true;
         } else {
-            $this->model->nocolor = false;
+            $this->model->is_nocolor = false;
         }
-
-        /** START **/
 
         // determine identity
         if (!empty($this->model->identity)) {
             // use provided affiliation override
-            $this->model->identity = $this->model->testAndReturnIdent($this->model->identity);
-            $this->model->sidc = substr($this->model->sidc,0,1).$this->model->identity.substr($this->model->sidc,2,12); // update the "default" or given sidc
+            $this->model->identity = $this->model->getIdentity($this->model->identity);
+            $this->model->sidc = substr($this->model->sidc,0,1) . $this->model->identity.substr($this->model->sidc,2,12); // update the "default" or given sidc
         } else {
             // determine identity from sidc
             $this->model->identity = $this->model->getIdentityFromSidc($this->model->sidc);
         }
 
         /** IMAGE **/
-        if (!empty($_REQUEST['image'])) {
+        if (array_key_exists('image', $_REQUEST)) {
+            $this->model->default_image = $_REQUEST['image'];
+        } elseif (array_key_exists('img', $_REQUEST)) {
+            $this->model->default_image = $_REQUEST['img'];
+        }
+
+        if (!empty($this->model->default_image)) {
             // user spec'ed image
-            $image = $_REQUEST['image'];
-            $frame_image = $this->model->testImage($image);
-            //$frame_image['default'] = false;
+            $frame_image = $this->model->testImage();
 
         } elseif (strlen($this->model->sidc) >= 15 && substr($this->model->sidc, 12, 2) <> '--') {
             // flag image
             $cc = strtolower(substr($this->model->sidc, 12, 2));
             $cc1 = $cc[0];
-            $image = "https://flagspot.net/images/" . $cc1 . "/" . $cc . ".gif";
-            $frame_image = $this->model->testImage($image, true);
-            //$frame_image['default'] = false;
-            //$frame_image['fotw'] = true;
+            $this->model->default_image = "https://flagspot.net/images/" . $cc1 . "/" . $cc . ".gif";
+            $frame_image = $this->model->testImage(true);
 
         } else {
-            // default
+            // default, no image
             $default_image = $this->model->getIdentityColorSwatch();
 
             $frame_info = getimagesize($default_image);
@@ -149,7 +149,7 @@ class EchelonController extends Controller {
             $frame_image['height'] = $frame_info[1];
             $frame_image['width'] = $frame_info[0];
             $frame_image['url'] = $default_image;
-            $frame_image['default'] = true;
+            $this->model->is_default = true;
         }
 
         // determine echelon
@@ -163,10 +163,19 @@ class EchelonController extends Controller {
 
         $this->model->indicator = ""; // init indicator
 
-        $output['is_2525c'] = $this->model->is2525c;
+        $output['is_2525c'] = $this->model->is_2525c;
+        $output['is_hq'] = $this->model->isHeadQuarters();
         $output['is_task_force'] = $this->model->isTaskForce();
-        $output['is_installation'] = $this->model->isInstallation(); // must come before use of getEchelon method.
-        $output['echelon'] = $this->model->getEchelon();
+        $output['is_feint_dummy'] = $this->model->isFeintDummy();
+
+        // following must come before use of getEchelon method.
+        $output['is_installation'] = $this->model->isInstallation();
+        $output['is_mobility'] = $this->model->isMobility();
+        $output['is_towed_array'] = $this->model->isTowedArray();
+
+        // processing echelon
+        $output['echelon'] =$this->model->processEchelon();
+
         $output['is_faker'] = $this->model->isFaker();
         $output['is_joker'] = $this->model->isJoker();
         $output['is_exercise'] = $this->model->isExercise();
@@ -183,35 +192,37 @@ class EchelonController extends Controller {
         if (!empty($this->model->indicator) && strlen($this->model->indicator) > 1) {
             $output['indicator'] = $this->model->indicator;
         } else {
-            $output['indicator'] = '&nbsp;'.$this->model->indicator;
+            $output['indicator'] = '&nbsp;' . $this->model->indicator;
         }
 
         // image post-processing
         $output['image'] = $frame_image['url']; // background image
         $output['image_txt'] = "Is hiding"; // missing image text
-        $output['default'] = $frame_image['default'];
+        $output['is_landscape'] = $this->model->is_landscape;
+
+        // frame fill color
+            $output['fill_color'] = $this->model->getIdentityColor();
 
         // frame color
-        $output['color'] = $this->model->getIdentityColor();
-
-        // frame background color
-        if (!empty($this->model->is_2525c) && !empty($this->model->is_assumed) && !empty($this->model->nocolor)) {
-            $output['bg_color'] = 'white';
-        } elseif (!empty($output['default']) || !empty($this->model->nocolor)) {
-            $output['bg_color'] = 'black';
+        if (!empty($this->model->is_default) && !empty($this->model->is_2525c) && !empty($this->model->is_assumed)) {
+            $output['frame_color'] = 'white';
+        } elseif (!empty($this->model->is_nocolor) && !empty($this->model->is_2525c) && !empty($this->model->is_assumed)) {
+            $output['frame_color'] = 'white';
+        } elseif (!empty($this->model->is_default)) {
+            $output['frame_color'] = 'black';
+        } elseif (!empty($this->model->is_nocolor)) {
+            $output['frame_color'] = 'black';
         } else {
-            $output['bg_color'] = $this->model->getIdentityColor();
+            $output['frame_color'] = $this->model->getIdentityColor();
         }
 
-        //$output['nocolor'] = $this->model->nocolor;
         $output['fotw'] = (!empty($frame_image['fotw']) ? $frame_image['fotw'] : false) ; // image from the Flags of the World website
 
         if (!empty($this->model->notex)) {
-            $output['notex'] = htmlentities(str_replace('\n','<br>',$this->model->notex));
+            $output['notex'] = htmlentities(str_replace('\n', '<br>', $this->model->notex));
         } elseif (!empty($this->model->note)) {
             $output['note'] = htmlentities($this->model->note);
         }
-
 
         if (!empty($is_debug)) {
             dd($output);
