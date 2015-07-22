@@ -49,54 +49,63 @@ class EchelonController extends Controller {
         // This tool will accept a URL request and create an unit based on the URI's SIDC (optional),
         // and image (optional) parameters.
 
+        if (!empty($_REQUEST)) {
+            $url_parameters = $_REQUEST;
+        }
+
         /** DEBUG **/
-        if (!empty($_REQUEST) && array_key_exists('debug', $_REQUEST)) {
+        if (!empty($url_parameters) && array_key_exists('debug', $url_parameters)) {
             $is_debug = true;
         }
 
         /** SIDC **/
-        if (!empty($_REQUEST['sidc'])) {
-            $this->model->sidc = $_REQUEST['sidc'];
+        if (!empty($url_parameters['sidc'])) {
+            $this->model->sidc = $url_parameters['sidc'];
         } else {
             // alrighty then, just default to SUGP - Unknown
             $this->model->sidc = 'SUGP-----------';
         }
 
         /** IDENT **/
-        // affiliation override -  f = frd, a = assumed -or- the affiliation from the sidc (2nd place character).
-        if (!empty($_REQUEST['ident'])) {
-            $this->model->identity = $_REQUEST['ident'];
+        // affiliation override - specify valid identity (only 1st character is used) -or- the affiliation from the sidc (2nd place character) will be used.
+        if (!empty($url_parameters['ident'])) {
+            // use provided affiliation override
+            $this->model->identity = $this->model->getIdentity($url_parameters['ident']);
+            $this->model->sidc = substr($this->model->sidc, 0, 1) . $this->model->identity . substr($this->model->sidc, 2, 13); // update the "default" or given sidc
+        } else {
+            // determine identity from sidc
+            $this->model->identity = $this->model->getIdentityFromSidc($this->model->sidc);
         }
 
         /** ECH **/
         // echelon override -  a one or two place value that overrides the sidc or default sidc.
-        if (!empty($_REQUEST['ech'])) {
-            $ech = substr($_REQUEST['ech'], 0, 8); // 8 char limit
-        } elseif (!empty($_REQUEST['echelon'])) {
-            $ech = substr($_REQUEST['echelon'], 0, 8); // 8 char limit
+        if (!empty($url_parameters['ech'])) {
+            $ech = substr($url_parameters['ech'], 0, 8); // 8 char limit
+        } elseif (!empty($url_parameters['echelon'])) {
+            $ech = substr($url_parameters['echelon'], 0, 8); // 8 char limit
         }
 
-        /** NOTE **/
+        /** NOTE | NOTEX **/
         // note (not mil spec) -  add a short note under frame.
-        if (!empty($_REQUEST['notex'])) {
-            $this->model->notex = $_REQUEST['notex']; // limit to 20 characters
-        } elseif (!empty($_REQUEST['note'])) {
-            $this->model->note = substr($_REQUEST['note'], 0, 20); // limit to 20 characters
+        if (!empty($url_parameters['notex'])) {
+            $this->model->notex = $url_parameters['notex']; // limit to 20 characters
+        } elseif (!empty($url_parameters['note'])) {
+            $this->model->note = substr($url_parameters['note'], 0, 20); // limit to 20 characters
         } else {
             $this->model->note = '';
         }
 
         /** 2525b **/
         // frame set override.  Overrides the default MIL-STD-2525C set with the MIL-STD-2525B set.
-        if (array_key_exists('2525b', $_REQUEST)) {
+        if (array_key_exists('2525b', $url_parameters)) {
             $this->model->is_2525c = false;
         } else {
             $this->model->is_2525c = true;
         }
 
         /** SIZE **/
-        if (!empty($_REQUEST['size']) && preg_match('/^\d*$/', $_REQUEST['size'])) {
-            $size = $_REQUEST['size'];
+        if (!empty($url_parameters['size']) && preg_match('/^\d*$/', $url_parameters['size'])) {
+            $size = $url_parameters['size'];
             if ($size < 100) {
                 $size = 100; // min size allowed
             }
@@ -104,29 +113,19 @@ class EchelonController extends Controller {
             $size = 100; // default size
         }
 
-        /** NC */
+        /** NC | NOCOLOR **/
         // Normally, if an image is displayed within the frame, the frame color is changed to reflect the identity.  This overrides this.
-        if (array_key_exists('nc', $_REQUEST) || array_key_exists('nocolor', $_REQUEST)) {
+        if (array_key_exists('nc', $url_parameters) || array_key_exists('nocolor', $url_parameters)) {
             $this->model->is_nocolor = true;
         } else {
             $this->model->is_nocolor = false;
         }
 
-        // determine identity
-        if (!empty($this->model->identity)) {
-            // use provided affiliation override
-            $this->model->identity = $this->model->getIdentity($this->model->identity);
-            $this->model->sidc = substr($this->model->sidc,0,1) . $this->model->identity.substr($this->model->sidc,2,12); // update the "default" or given sidc
-        } else {
-            // determine identity from sidc
-            $this->model->identity = $this->model->getIdentityFromSidc($this->model->sidc);
-        }
-
-        /** IMAGE **/
-        if (array_key_exists('image', $_REQUEST)) {
-            $this->model->default_image = $_REQUEST['image'];
-        } elseif (array_key_exists('img', $_REQUEST)) {
-            $this->model->default_image = $_REQUEST['img'];
+        /** IMG | IMAGE **/
+        if (array_key_exists('img', $url_parameters)) {
+            $this->model->default_image = $url_parameters['img'];
+        } elseif (array_key_exists('image', $url_parameters)) {
+            $this->model->default_image = $url_parameters['image'];
         }
 
         if (!empty($this->model->default_image)) {
